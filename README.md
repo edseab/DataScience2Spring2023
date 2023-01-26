@@ -2,15 +2,19 @@
 Public repo for the Collective Intelligence Masters module, DataScience, Programming, and Statistics 2.
 
 Before each class, remember to run:
+
     <git fetch>
+    
 to ensure your local version is up to date with the main repo.
 
 Checkout a new branch before you save any changes (e.g. the lab file) using:
+
     git checkout -b <newbranchname>
 
 When working on a lab file, remember to add your name to the filename before saving.
 
 Remember to run 
+
     git add <filename_or_directory>
     git commit -am "commit message"
 
