@@ -2,7 +2,7 @@
 Public repo for the Collective Intelligence Masters module, DataScience, Programming, and Statistics 2.
 
 Before each class, remember to run:
-    git fetch
+    <git fetch>
 to ensure your local version is up to date with the main repo.
 
 Checkout a new branch before you save any changes (e.g. the lab file) using:
