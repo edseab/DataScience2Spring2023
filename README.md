@@ -34,6 +34,7 @@ in the terminal.
 
 4. Create a Github account (https://github.com/join)
 5. Link your Github account to git in the RStudio terminal:
+what is happening
 
     git config --global user.name 'Firstname Lastname'
     git config --global user.email 'your.email@example.com'
