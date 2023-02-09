@@ -1,7 +1,7 @@
 # DataScience2Spring2023
 Public repo for the Collective Intelligence Masters module, DataScience, Programming, and Statistics 2.
 
-Before each class, remember to run:
+**Before each class, remember to run:**
 
     git fetch
     
@@ -22,7 +22,7 @@ to commit all your saved changes to the branch.
 
 When you have saved changes to the repo on your branch initiate a pull request (https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request)
 
-** First week instructions ** 
+**First week instructions** 
 
 1. Install R (https://cloud.r-project.org/)
 2. Install RStudio (https://posit.co/download/rstudio-desktop/)
