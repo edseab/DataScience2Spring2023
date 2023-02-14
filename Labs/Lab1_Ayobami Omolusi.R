@@ -248,9 +248,6 @@ random_function <- function() {
 
 ### 4.4
 # Based on today's lecture about pdfs, what is the probability density for a uniform pdf bounded between 0 and 1 associated with all values of x between 0 and 1? Explain why.
-
-### 4.5
-# Similarly, what is the probability density for a uniform pdf bounded between 5 and 6 associated with all values of x between 5 and 6?
 #The probability density function (PDF) for a uniform distribution bounded between 0 and 1 is:
 # f(x) = 1, 
 # 0 <= x <= 1
@@ -258,6 +255,15 @@ random_function <- function() {
 # The overall area under the PDF curve with a uniform distribution between 0 and 1 must be equal to 1, as the likelihood of any event occuring between 0 and 1 is 1.
 # Since the uniform PDF has a constant value between 0 and 1, the area under the curve is just the range's breadth times the uniform PDF's height, which is 1. 
 # So, since the PDF is a legitimate probability density function and the area under the curve equals 1, it is genuine.
+
+### 4.5
+# Similarly, what is the probability density for a uniform pdf bounded between 5 and 6 associated with all values of x between 5 and 6?
+# The probability density for a uniform pdf bounded between 5 and 6 is given by the density function:
+#  f(x) = 1/(b-a) = 1/(6-5) = 1
+#  for 5 <= x <= 6
+
+# This indicates that across the range [5, 6], the density of the uniform distribution remains constant at 1. For all values of x between 5 and 6, 
+# we may interpret this constant as the height of the probability density function (PDF), as the probability density function (PDF) integrates to 1 over the support of the distribution.
 
 ### 4.6
 # What is the probability density for a uniform pdf bounded between 0 and 0.5 associated with all values of x between 0 and 0.5?
