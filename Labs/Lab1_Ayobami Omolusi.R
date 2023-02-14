@@ -111,10 +111,10 @@ my.vector[c(1,4)]
 
 ### 1.1
 # You can assign values to specific elements. Try writing a line of code below that changes the 4th element of my.vector to the word 'test'
-
+my.vector[4] <- 'test'
 ### 1.2
 # You can even assign values to elements of a vector that don't exist yet, thus creating them. Try assigning the word 'example' to the (as yet non-existant) 5th element of my.vector.
-
+my.vector[5] <- 'example'
 # Instead of indices, you can select elements of a vector using a logical vector of the same length, e.g.
 
 my.vector[c(TRUE,TRUE,FALSE,FALSE,FALSE)]
@@ -134,6 +134,7 @@ my.vector == 'is'
 ### 2.1
 digits <- 0:10
 # Using the least amount of code possible, write a line of code that returns only the odd values of the digits object.
+digits[digits %% 2 == 1]
 
 # Another important logical operator is the %in% operator. It tells you if the elements on the left are found in the elements on the right. E.G.
 group1 <- c('Arthur', 'Fatima', 'Suleiman', 'Marco')
@@ -144,7 +145,7 @@ group1 %in% group2
 # intersect is a function which returns the elements that all of its arguments have in common. For example:
 intersect(group1,group2)
 # Write a line of code that replicates this output using only group1, group2, square brackets, and logical operators.
-
+group1[group1 %in% group2]
 ####################################
 ####     Writing functions      ####
 ####################################
@@ -168,9 +169,16 @@ f2(8,9)
 f2(14,7)
 
 ### 3.1 What is the purpose of function f2? Write in comments below.
+#The purpose of function f2 is to return a boolean output(True/False) that shows whether x is divisible by y.
 
 ### 3.2
 # Based on the definition of the mean from today's lecture, write a function that calculates the mean of all of the elements of a vector. assign it to the object my.mean. You will find the functions 'sum' and 'length' useful here.
+my.mean <- function(x){
+  y <- sum(x)/length(x)
+  return(y)
+}
+w <- c(3,4,3,2,3,6,7)
+my.mean(w)
 
 # compare your function to the native function in R. Does it produce the same results?
 my.mean(ex.vector)
@@ -194,11 +202,33 @@ sample(1:10, 20, replace = TRUE)
 ### 4.1
 # Write a function that simulates the roll of 2 6-sided dice, where the argument x is the number of times you roll the 2 dice, and the output is a vector of length x, where each element corresponds to the sum of the two sides of the dice.
 # HINT: one way to do this is to start by writing a function for a single 6-sided die, then create a new function that repeats the first function twice and adds up the result.
+dice <- function(){
+  y<- sample(1:6, 1, replace = TRUE)
+  return(y)
+}
 
+roll_dice <- function(){
+  v <- dice()
+  w <- dice()
+  y<- v+w
+  return(y)
+}
+dice()
+roll_dice()
 ### 4.2
 # Using the function hist, create histograms of the results of double dice rolls when you roll them 10 times, then 50, then 100, then 1000, then 10000. Use breaks=1:12 as an argument within the hist function. What do you notice? Write it in comments below your code.
+n_values <- c(10, 50, 100, 1000, 10000)
+par(mfrow = c(2, 3)) # Set the plot layout to 2 rows and 3 columns
+for (i in 1:length(n_values)) {
+  x <- replicate(n_values[i], roll_dice()) # Roll the dice n times and store the results
+  hist(x, breaks = 1:12, main = paste0("n = ", n_values[i]))
+}
 
+#COMMENT
 
+# The histograms get increasingly symmetrical and bell-shaped as the sample size rises, which is in accordance with the Central Limit Theorem. 
+# As expected for the sum of two uniformly distributed dice rolls, we can also see that the frequencies grow increasingly concentrated around the middle values (i.e., 7). 
+# Additionally, as the sample size rises, the histograms become more stable and less noisy, suggesting that estimations of the underlying distribution from bigger sample sizes are more accurate.
 # Another way to generate randomness is to sample from a pdf, which is a continuous distribution. The simplest pdf is the uniform function. The uniform function is a flat line bounded between 2 numbers. Because it is flat, the probability of drawing a sample from any interval of given width between the two bounds is the same as from any other interval of given width.
 
 # The function runif(n, min,max) samples n times from a uniform function bounded between the values of min and max. For example, try
@@ -206,18 +236,47 @@ runif(5,0,1)
 
 ### 4.3
 # Using runif, write a function that returns TRUE 22% of the time and FALSE 78% of the time
+random_function <- function() {
+  random_number <- runif(1)
+  if (random_number < 0.22) {
+    return(TRUE)
+  } else {
+    return(FALSE)
+  }
+}
+
 
 ### 4.4
 # Based on today's lecture about pdfs, what is the probability density for a uniform pdf bounded between 0 and 1 associated with all values of x between 0 and 1? Explain why.
 
 ### 4.5
 # Similarly, what is the probability density for a uniform pdf bounded between 5 and 6 associated with all values of x between 5 and 6?
+#The probability density function (PDF) for a uniform distribution bounded between 0 and 1 is:
+# f(x) = 1, 
+# 0 <= x <= 1
+# Reason
+# The overall area under the PDF curve with a uniform distribution between 0 and 1 must be equal to 1, as the likelihood of any event occuring between 0 and 1 is 1.
+# Since the uniform PDF has a constant value between 0 and 1, the area under the curve is just the range's breadth times the uniform PDF's height, which is 1. 
+# So, since the PDF is a legitimate probability density function and the area under the curve equals 1, it is genuine.
 
 ### 4.6
 # What is the probability density for a uniform pdf bounded between 0 and 0.5 associated with all values of x between 0 and 0.5?
+# The probability density function (pdf) for a uniform distribution bounded between 0 and 0.5 is given by:
+  
+#  f(x) = 1/(0.5-0) = 1/0.5 = 2, 
+# for 0 <= x <= 0.5
+# Therefore, the probability density for a uniform pdf limited between 0 and 0.5 associated with all values of x between 0 and 0.5 is a constant value of 2, 
+# and the probability of any specific value of x between 0 and 0.5 is proportional to the length of the interval containing that value.
 
 ### 4.7
 # What is the probability density for a uniform pdf bounded between 0 and 2 associated with all values of x between 0 and 2?
+# The probability density function (pdf) for a uniform distribution bounded between 0 and 2 is given by:
+
+# f(x) = 1/(2-0) = 1/2, 
+# for 0 <= x <= 2
+# The probability density for a uniform pdf confined between 0 and 2 therefore has a constant value of 1/2 associated with all values of x between 0 and 2, 
+# and the likelihood of any given value of x between 0 and 2 is proportional to the length of the interval containing that value.
+
 
 ### 4.8
 # run the following code:
@@ -228,4 +287,9 @@ dunif(1.3,0,2)
 
 # Based on the results of this code and your answers above, what can you conclude about the purpose of the dunif function?
 
+#ANSWER
+#The results are: 1, 0,2, and 0.5 respectively.
+# Based on the results of the code, the function "dunif" is to calculate the probability density value (pdf) of a continuous uniform distribution 
+# at a given value of x, for a specified range of values.In this case, the first number is the x and the other numbers are the range.
+# The second code gave an output of 0 because the x value which is 2 exceeds the range given which is between 0 and 1.
 
