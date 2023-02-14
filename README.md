@@ -4,6 +4,7 @@ Public repo for the Collective Intelligence Masters module, DataScience, Program
 **Before each class, remember to run:**
 
     git fetch
+    git pull
     
 to ensure your local version is up to date with the main repo.
 
