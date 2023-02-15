@@ -42,7 +42,7 @@ rep(4,3)
 rep(x=3, times=4)
 rep(times=4, x=3)
 
-# produce the same result, because we inputed the arguments by name using the 'argname = x' construction. When we don't use this construction, the function defaults each input to an argument according to a predefined order.
+# produce the same result, because we input the arguments by name using the 'argname = x' construction. When we don't use this construction, the function defaults each input to an argument according to a predefined order.
 
 # OPERATORS are special functions that take only 2 arguments, and do not use brackets. Instead, you must input the two arguments on either side of the operator. Examples of operators include +, -,*,/, ^, %%, %/%, :, and there are many more which we will learn about soon.
 
@@ -89,7 +89,7 @@ Salaam -> y
 ####     Vectors and indices    ####
 ####################################
 
-# YOu will have noticed that the console has always returned a [1] in front of it's output so far. This is because R has considered all these objects to be 'vectors' (in Python, this is the same thing as an array). Vectors are objects that can contain multiple elements. For example:
+# YOu will have noticed that the console has always returned a [1] in front of it's output so far. This is because R has considered all these objects to be 'vectors' (in Python, this is the same thing as an array(you mean list sir?)). Vectors are objects that can contain multiple elements. For example:
 
 z <- 50:80
 z
@@ -111,10 +111,10 @@ my.vector[c(1,4)]
 
 ### 1.1
 # You can assign values to specific elements. Try writing a line of code below that changes the 4th element of my.vector to the word 'test'
-
+my.vector[4] <- 'test'
 ### 1.2
 # You can even assign values to elements of a vector that don't exist yet, thus creating them. Try assigning the word 'example' to the (as yet non-existant) 5th element of my.vector.
-
+my.vector[5] <- 'example'
 # Instead of indices, you can select elements of a vector using a logical vector of the same length, e.g.
 
 my.vector[c(TRUE,TRUE,FALSE,FALSE,FALSE)]
@@ -134,7 +134,7 @@ my.vector == 'is'
 ### 2.1
 digits <- 0:10
 # Using the least amount of code possible, write a line of code that returns only the odd values of the digits object.
-
+ifelse(digits%%2 != 0,digits,'')
 # Another important logical operator is the %in% operator. It tells you if the elements on the left are found in the elements on the right. E.G.
 group1 <- c('Arthur', 'Fatima', 'Suleiman', 'Marco')
 group2 <- c('Marco','Maria', 'Victor','Fatima', 'Antonio')
@@ -169,8 +169,12 @@ f2(14,7)
 
 ### 3.1 What is the purpose of function f2? Write in comments below.
 
-### 3.2
+### 3.2 f2 takes two argumrnts, then compare their remainder with 0
 # Based on the definition of the mean from today's lecture, write a function that calculates the mean of all of the elements of a vector. assign it to the object my.mean. You will find the functions 'sum' and 'length' useful here.
+ex.vector <- c(1,2,3)
+my.mean <- function (ex.vector){
+ return(sum(ex.vector) / length(ex.vector)) 
+}
 
 # compare your function to the native function in R. Does it produce the same results?
 my.mean(ex.vector)
@@ -183,7 +187,7 @@ mean(ex.vector)
 # There are several ways to generate randomness in R. The simplest function is 
 ?sample
 
-#which randomy draws WITHOUT replacement from a specified vector. For example, to choose a number at random between 1 and 10:
+#which randomly draws WITHOUT replacement from a specified vector. For example, to choose a number at random between 1 and 10:
 sample(1:10, 1)
 # You can run this several times and notice that you get a different answer each time. You can also sample several times at once
 sample(1:10, 3)
@@ -194,10 +198,31 @@ sample(1:10, 20, replace = TRUE)
 ### 4.1
 # Write a function that simulates the roll of 2 6-sided dice, where the argument x is the number of times you roll the 2 dice, and the output is a vector of length x, where each element corresponds to the sum of the two sides of the dice.
 # HINT: one way to do this is to start by writing a function for a single 6-sided die, then create a new function that repeats the first function twice and adds up the result.
+die_roll <- function(){
+  die1 = sample(1:6, number_of_roll, replace = TRUE)
+  die2 = sample(1:6, number_of_roll, replace = TRUE)
+  sum_die = sum(die1, die2)
+  print(paste('first die rolls',die1))
+  print(paste('first die rolls',die2))
+  print(paste('The sum of both die is:',sum_die))
+}
+die_roll()
+
 
 ### 4.2
 # Using the function hist, create histograms of the results of double dice rolls when you roll them 10 times, then 50, then 100, then 1000, then 10000. Use breaks=1:12 as an argument within the hist function. What do you notice? Write it in comments below your code.
+?hist
+double_roll <- function(number_of_roll){
+  die1 = sample(1:6, number_of_roll, replace = TRUE)
+  die2 = sample(1:6, number_of_roll, replace = TRUE)
+  #print(paste('die rolls',die1,",", die2))
+  return(sum(die1,die2))
 
+}
+
+double_roll(10)
+
+hist(double_roll(10), breaks = "Sturges")
 
 # Another way to generate randomness is to sample from a pdf, which is a continuous distribution. The simplest pdf is the uniform function. The uniform function is a flat line bounded between 2 numbers. Because it is flat, the probability of drawing a sample from any interval of given width between the two bounds is the same as from any other interval of given width.
 
