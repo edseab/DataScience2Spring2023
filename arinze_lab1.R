@@ -251,7 +251,7 @@ my_function <- function() {
 ### 4.4
 # Based on today's lecture about pdfs, what is the probability density for a uniform pdf bounded between 0 and 1 associated with all values of x between 0 and 1? Explain why.
 
-#probability density of a uniform pdf for all values between 0 and 1 is equal to 1, as this is calculated by dividing 1 with the range of interval between the minimum value and maximum value so that becomes 1/1 which equates to 1
+#probability density of a uniform pdf for all values between 0 and 1 is equal to 1, as this is calculated by dividing 1 with the range between the minimum value and maximum value 1/(1-0) so that becomes 1/1 which equates to 1
 ### 4.5
 # Similarly, what is the probability density for a uniform pdf bounded between 5 and 6 associated with all values of x between 5 and 6?
 # The probability density here also is equal to 1
