@@ -111,10 +111,12 @@ my.vector[c(1,4)]
 
 ### 1.1
 # You can assign values to specific elements. Try writing a line of code below that changes the 4th element of my.vector to the word 'test'
-
+my.vector[4] <-'test'
+my.vector[4]
 ### 1.2
 # You can even assign values to elements of a vector that don't exist yet, thus creating them. Try assigning the word 'example' to the (as yet non-existant) 5th element of my.vector.
-
+my.vector[5]<-'example'
+my.vector[5]
 # Instead of indices, you can select elements of a vector using a logical vector of the same length, e.g.
 
 my.vector[c(TRUE,TRUE,FALSE,FALSE,FALSE)]
@@ -133,7 +135,10 @@ my.vector == 'is'
 
 ### 2.1
 digits <- 0:10
+digits
 # Using the least amount of code possible, write a line of code that returns only the odd values of the digits object.
+digits[digits%%2!=0]
+
 
 # Another important logical operator is the %in% operator. It tells you if the elements on the left are found in the elements on the right. E.G.
 group1 <- c('Arthur', 'Fatima', 'Suleiman', 'Marco')
@@ -144,6 +149,8 @@ group1 %in% group2
 # intersect is a function which returns the elements that all of its arguments have in common. For example:
 intersect(group1,group2)
 # Write a line of code that replicates this output using only group1, group2, square brackets, and logical operators.
+
+group1[group1 %in% group2]
 
 ####################################
 ####     Writing functions      ####
@@ -168,10 +175,12 @@ f2(8,9)
 f2(14,7)
 
 ### 3.1 What is the purpose of function f2? Write in comments below.
-
+#the purpuse of function 2 is to verify if the rest of the division between 2 numbers equal to 0
 ### 3.2
 # Based on the definition of the mean from today's lecture, write a function that calculates the mean of all of the elements of a vector. assign it to the object my.mean. You will find the functions 'sum' and 'length' useful here.
-
+my.mean<-function(x){
+  sum(x)/length(x)
+}
 # compare your function to the native function in R. Does it produce the same results?
 my.mean(ex.vector)
 mean(ex.vector)
@@ -195,29 +204,59 @@ sample(1:10, 20, replace = TRUE)
 # Write a function that simulates the roll of 2 6-sided dice, where the argument x is the number of times you roll the 2 dice, and the output is a vector of length x, where each element corresponds to the sum of the two sides of the dice.
 # HINT: one way to do this is to start by writing a function for a single 6-sided die, then create a new function that repeats the first function twice and adds up the result.
 
+
+Towdice<-function(){
+  dice <- sample(1:6, size = 2, replace = TRUE)
+  return(sum(dice))
+}
+replicate(n = 10, expr = Towdice())
 ### 4.2
 # Using the function hist, create histograms of the results of double dice rolls when you roll them 10 times, then 50, then 100, then 1000, then 10000. Use breaks=1:12 as an argument within the hist function. What do you notice? Write it in comments below your code.
-
+Tentimes<-replicate(n = 10, expr = Towdice())
+hist(Tentimes,breaks=1:12)
+Fiftytimes<-replicate(n = 50, expr = Towdice())
+hist(Fiftytimes,breaks=1:12)
+Handredtimes<-replicate(n = 100, expr = Towdice())
+hist(Handredtimes,breaks=1:12)
+Miletimes<-replicate(n = 1000, expr = Towdice())
+hist(Miletimes,breaks=1:12)
+Tenmiletimes<-replicate(n = 10000, expr = Towdice())
+hist(Tenmiletimes,breaks=1:12)
+#what I notice is that the more we roll the dice the more we get somthing close to normal distributions
 
 # Another way to generate randomness is to sample from a pdf, which is a continuous distribution. The simplest pdf is the uniform function. The uniform function is a flat line bounded between 2 numbers. Because it is flat, the probability of drawing a sample from any interval of given width between the two bounds is the same as from any other interval of given width.
 
 # The function runif(n, min,max) samples n times from a uniform function bounded between the values of min and max. For example, try
 runif(5,0,1)
+?runif
 
 ### 4.3
 # Using runif, write a function that returns TRUE 22% of the time and FALSE 78% of the time
 
+YesNo <- function() {
+  if (runif(1) <= 0.22) {
+    return(TRUE)
+  } else {
+    return(FALSE)
+  }
+}
+YesNo()
+
 ### 4.4
 # Based on today's lecture about pdfs, what is the probability density for a uniform pdf bounded between 0 and 1 associated with all values of x between 0 and 1? Explain why.
 
+###the probability density is constant across all values of x between 0 and 1.if we consider that the area under the curve must be equal to 1,because the total probability of all possible outcomes must sum to 1. Since is a rectangle with height 1 and width 1, 
+
+
 ### 4.5
 # Similarly, what is the probability density for a uniform pdf bounded between 5 and 6 associated with all values of x between 5 and 6?
-
+#(1/(6-5)=1) so it"s equal to 1
 ### 4.6
 # What is the probability density for a uniform pdf bounded between 0 and 0.5 associated with all values of x between 0 and 0.5?
-
+#(1/(0.5-0)=2)
 ### 4.7
 # What is the probability density for a uniform pdf bounded between 0 and 2 associated with all values of x between 0 and 2?
+#(1/(2-0)=0.5)
 
 ### 4.8
 # run the following code:
@@ -227,5 +266,5 @@ dunif(0.2,0,0.5)
 dunif(1.3,0,2)
 
 # Based on the results of this code and your answers above, what can you conclude about the purpose of the dunif function?
-
-
+                  
+#based on the results we can conclude that dunif is used to calculate the uniform probability density
