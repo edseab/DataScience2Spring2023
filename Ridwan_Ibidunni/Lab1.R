@@ -210,7 +210,7 @@ sample(1:10, 20, replace = TRUE)
 # Write a function that simulates the roll of 2 6-sided dice, where the argument x is the number of times you roll the 2 dice, and the output is a vector of length x, where each element corresponds to the sum of the two sides of the dice.
 # HINT: one way to do this is to start by writing a function for a single 6-sided die, then create a new function that repeats the first function twice and adds up the result.
 
-#a function that generates rondom numbers from two dice
+#a function that generates rondom numbers from two dice then sum it
 die_roll <- function(){
   die1 = sample(1:6,2, replace = TRUE)
   die2 = sample(1:6,2, replace = TRUE)
@@ -230,9 +230,9 @@ die_roll()
 ?hist
 
 
-#a function that generate double faces of two dice
+#a function that generate double faces of two dice randomly
 double_roll <- function(number_of_times){
-  dice_rolls <- replicate(number_of_times, sample(1:6, 2, replace = TRUE))  
+  dice_rolls <- replicate(2, sample(1:6, number_of_times, replace = TRUE))  
   return(dice_rolls)
 }
 
@@ -327,4 +327,5 @@ dunif(1.3,0,2)
 # The dunif() is used to calculate the probability density of the continues value of x for each question where 
 #x = 0.5, 2, 0.2 and 1.3 respectively, where the range of the distribution for each x values are (0,1), (0.1)
 #(0, 0.5) and (0,2) repectively. This implies x can take any ranges of within these brackets
+
 
