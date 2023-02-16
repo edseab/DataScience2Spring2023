@@ -81,7 +81,7 @@ class (y)
 
 # If we forget to use quote marks R will search for a stored object with that name and return an error if it doesn't find it:
 
-Salaam -> y
+'Salaam' -> y
 
 # One final very important class of object is the 'logical' class, a.k.a. Boolean. 
 
@@ -111,12 +111,14 @@ my.vector[c(1,4)]
 
 ### 1.1
 # You can assign values to specific elements. Try writing a line of code below that changes the 4th element of my.vector to the word 'test'
+
 my.vector[4] <- 'test'
+
 ### 1.2
 # You can even assign values to elements of a vector that don't exist yet, thus creating them. Try assigning the word 'example' to the (as yet non-existant) 5th element of my.vector.
 my.vector[5] <- 'example'
-# Instead of indices, you can select elements of a vector using a logical vector of the same length, e.g.
 
+# Instead of indices, you can select elements of a vector using a logical vector of the same length, e.g.
 my.vector[c(TRUE,TRUE,FALSE,FALSE,FALSE)]
 
 
@@ -133,8 +135,10 @@ my.vector == 'is'
 
 ### 2.1
 digits <- 0:10
+
 # Using the least amount of code possible, write a line of code that returns only the odd values of the digits object.
 ifelse(digits%%2 != 0,digits,'')
+
 # Another important logical operator is the %in% operator. It tells you if the elements on the left are found in the elements on the right. E.G.
 group1 <- c('Arthur', 'Fatima', 'Suleiman', 'Marco')
 group2 <- c('Marco','Maria', 'Victor','Fatima', 'Antonio')
@@ -170,11 +174,16 @@ f2(14,7)
 ### 3.1 What is the purpose of function f2? Write in comments below.
 
 ### 3.2 f2 takes two argumrnts, then compare their remainder with 0
+
 # Based on the definition of the mean from today's lecture, write a function that calculates the mean of all of the elements of a vector. assign it to the object my.mean. You will find the functions 'sum' and 'length' useful here.
+#creating a vector variable
 ex.vector <- c(1,2,3)
+
+#creating a function that implement the mean function
 my.mean <- function (ex.vector){
  return(sum(ex.vector) / length(ex.vector)) 
 }
+
 
 # compare your function to the native function in R. Does it produce the same results?
 my.mean(ex.vector)
@@ -189,8 +198,10 @@ mean(ex.vector)
 
 #which randomly draws WITHOUT replacement from a specified vector. For example, to choose a number at random between 1 and 10:
 sample(1:10, 1)
+
 # You can run this several times and notice that you get a different answer each time. You can also sample several times at once
 sample(1:10, 3)
+
 # However, by default, sample won't let the same number repeat when you do this. This is called sampling without replacement, because it is as if, each time you pick out a number, it is now gone from the pool of possible numbers and has not been replaced.
 # If you want to sample randomly between 1 and 10 20 times, each time chossing between all 10 numbers, you have to write:
 sample(1:10, 20, replace = TRUE)
@@ -198,6 +209,8 @@ sample(1:10, 20, replace = TRUE)
 ### 4.1
 # Write a function that simulates the roll of 2 6-sided dice, where the argument x is the number of times you roll the 2 dice, and the output is a vector of length x, where each element corresponds to the sum of the two sides of the dice.
 # HINT: one way to do this is to start by writing a function for a single 6-sided die, then create a new function that repeats the first function twice and adds up the result.
+
+#a function that generates rondom numbers from two dice
 die_roll <- function(){
   die1 = sample(1:6, number_of_roll, replace = TRUE)
   die2 = sample(1:6, number_of_roll, replace = TRUE)
@@ -206,6 +219,8 @@ die_roll <- function(){
   print(paste('first die rolls',die2))
   print(paste('The sum of both die is:',sum_die))
 }
+
+#call the die function
 die_roll()
 
 
@@ -214,14 +229,12 @@ die_roll()
 ?hist
 
 
+#a function that generate double faces of two dice
 double_roll <- function(number_of_times){
   dice_rolls <- replicate(number_of_times, sample(1:6, 2, replace = TRUE))  
   return(dice_rolls)
-
 }
-?replicate
-?sample
-double_roll()
+
 
 
 
@@ -234,16 +247,17 @@ double_roll()
 #the number of times we rolled double 100 times
 (times_100 = sum(double_roll(100)[,1] == double_roll(100)[,2]))
 
-#the number of times we rolled double 100 times
+#the number of times we rolled double 1000 times
 (times_1000 = sum(double_roll(1000)[,1] == double_roll(1000)[,2]))
 
-#the number of times we rolled double 100 times
+#the number of times we rolled double 10000 times
 (times_10000 = sum(double_roll(10000)[,1] == double_roll(10000)[,2]))
 
 
-
+#packing the values of the double dice in vector 'values'
 values <- c(times_10, times_50, times_100, times_10000)
 
+#drawing a histogram of your values
 hist(values , breaks = 1:12)
 
 #my observation from using the break 1:12 is that 
@@ -255,22 +269,51 @@ hist(values , breaks = 1:12)
 # Another way to generate randomness is to sample from a pdf, which is a continuous distribution. The simplest pdf is the uniform function. The uniform function is a flat line bounded between 2 numbers. Because it is flat, the probability of drawing a sample from any interval of given width between the two bounds is the same as from any other interval of given width.
 
 # The function runif(n, min,max) samples n times from a uniform function bounded between the values of min and max. For example, try
+?runif
 runif(5,0,1)
 
 ### 4.3
 # Using runif, write a function that returns TRUE 22% of the time and FALSE 78% of the time
 
+#a function that loops 100 time to output true 22 times and false 78 times
+runif_func <- function() {
+  for(n in 1:100){
+    ifelse(runif(n) <= 0.22,print(TRUE),print(FALSE))
+   }
+}
+
+#calling the runif_func function
+runif_func()
+
+
+
+
+
 ### 4.4
 # Based on today's lecture about pdfs, what is the probability density for a uniform pdf bounded between 0 and 1 associated with all values of x between 0 and 1? Explain why.
+# Probability density is the likelihood of a continuous variable to take different values within a particular range.
+# so the probability of a pdf bounded between 0 and 1 it its likelihood to take different values of x beteen 0 and 1
+#This will gotten by measuring the total area under the pdf between 0 and 1
 
 ### 4.5
 # Similarly, what is the probability density for a uniform pdf bounded between 5 and 6 associated with all values of x between 5 and 6?
+# Probability density is the likelihood of a continuous variable to take different values within a particular range.
+# so the probability of a pdf bounded between 5 and 6 it its likelihood to take different values of x beteen 5 and 6
+#This will gotten by measuring the total area under the pdf between 5 and 6
 
 ### 4.6
 # What is the probability density for a uniform pdf bounded between 0 and 0.5 associated with all values of x between 0 and 0.5?
+# Probability density is the likelihood of a continuous variable to take different values within a particular range.
+# so the probability of a pdf bounded between 0 and 0.5 it its likelihood to take different values of x beteen 0 and 0.5
+#This will gotten by measuring the total area under the pdf between 0 and 0.5
 
 ### 4.7
 # What is the probability density for a uniform pdf bounded between 0 and 2 associated with all values of x between 0 and 2?
+# Probability density is the likelihood of a continuous variable to take different values within a particular range.
+# so the probability of a pdf bounded between 0 and 2 it its likelihood to take different values of x beteen 0 and 2
+#This will gotten by measuring the total area under the pdf between 0 and 2
+
+?dunif
 
 ### 4.8
 # run the following code:
@@ -280,5 +323,7 @@ dunif(0.2,0,0.5)
 dunif(1.3,0,2)
 
 # Based on the results of this code and your answers above, what can you conclude about the purpose of the dunif function?
-
+# The dunif() is used to calculate the probability density of the continues value of x for each question where 
+#x = 0.5, 2, 0.2 and 1.3 respectively, where the range of the distribution for each x values are (0,1), (0.1)
+#(0, 0.5) and (0,2) repectively. This implies x can take any ranges of within these brackets
 
