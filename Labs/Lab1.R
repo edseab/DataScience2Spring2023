@@ -212,17 +212,45 @@ die_roll()
 ### 4.2
 # Using the function hist, create histograms of the results of double dice rolls when you roll them 10 times, then 50, then 100, then 1000, then 10000. Use breaks=1:12 as an argument within the hist function. What do you notice? Write it in comments below your code.
 ?hist
-double_roll <- function(number_of_roll){
-  die1 = sample(1:6, number_of_roll, replace = TRUE)
-  die2 = sample(1:6, number_of_roll, replace = TRUE)
-  #print(paste('die rolls',die1,",", die2))
-  return(sum(die1,die2))
+
+
+double_roll <- function(number_of_times){
+  dice_rolls <- replicate(number_of_times, sample(1:6, 2, replace = TRUE))  
+  return(dice_rolls)
 
 }
+?replicate
+?sample
+double_roll()
 
-double_roll(10)
 
-hist(double_roll(10), breaks = "Sturges")
+
+#the number of times we rolled double 10 times
+(times_10 = sum(double_roll(10)[,1] == double_roll(10)[,2]))
+
+#the number of times we rolled double 50 times
+(times_50 = sum(double_roll(50)[,1] == double_roll(50)[,2]))
+
+#the number of times we rolled double 100 times
+(times_100 = sum(double_roll(100)[,1] == double_roll(100)[,2]))
+
+#the number of times we rolled double 100 times
+(times_1000 = sum(double_roll(1000)[,1] == double_roll(1000)[,2]))
+
+#the number of times we rolled double 100 times
+(times_10000 = sum(double_roll(10000)[,1] == double_roll(10000)[,2]))
+
+
+
+values <- c(times_10, times_50, times_100, times_10000)
+
+hist(values , breaks = 1:12)
+
+#my observation from using the break 1:12 is that 
+#as two dice were rolled, their sample values can exceed 
+#the break point whcih is 12. and this makes the values 
+#on the x-axis to be out of range  
+
 
 # Another way to generate randomness is to sample from a pdf, which is a continuous distribution. The simplest pdf is the uniform function. The uniform function is a flat line bounded between 2 numbers. Because it is flat, the probability of drawing a sample from any interval of given width between the two bounds is the same as from any other interval of given width.
 
