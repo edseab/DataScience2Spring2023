@@ -229,42 +229,25 @@ die_roll()
 # Using the function hist, create histograms of the results of double dice rolls when you roll them 10 times, then 50, then 100, then 1000, then 10000. Use breaks=1:12 as an argument within the hist function. What do you notice? Write it in comments below your code.
 ?hist
 
-
-#a function that generate double faces of two dice randomly
-double_roll <- function(number_of_times){
-  dice_rolls <- replicate(2, sample(1:6, number_of_times, replace = TRUE))  
-  return(dice_rolls)
+# Create a function to generate the histograms for a given number of rolls
+histogram <- function(number_of_times) {
+  # Roll the dice and store the results in a vector
+  results <- replicate(number_of_times, sum(sample(1:6, 2, replace = TRUE)))
+  
+  # Plot a histogram of the results
+  hist(results, breaks = 1:12, col = "lightgreen",
+       main = paste("Double Dice Rolls (", number_of_times, " rolls)", sep = ""), 
+       xlab = "Result", ylab = "Frequency")
 }
 
+# Generate histograms for 10 rolls, 50 rolls and 100 rolls
+histogram(10)
+histogram(50)
+histogram(100)
+histogram(1000)
+histogram(10000)
 
 
-
-#the number of times we rolled double 10 times
-(times_10 = sum(double_roll(10)[,1] == double_roll(10)[,2]))
-
-#the number of times we rolled double 50 times
-(times_50 = sum(double_roll(50)[,1] == double_roll(50)[,2]))
-
-#the number of times we rolled double 100 times
-(times_100 = sum(double_roll(100)[,1] == double_roll(100)[,2]))
-
-#the number of times we rolled double 1000 times
-(times_1000 = sum(double_roll(1000)[,1] == double_roll(1000)[,2]))
-
-#the number of times we rolled double 10000 times
-(times_10000 = sum(double_roll(10000)[,1] == double_roll(10000)[,2]))
-
-
-#packing the values of the double dice in vector 'values'
-values <- c(times_10, times_50, times_100, times_10000)
-
-#drawing a histogram of your values
-hist(values , breaks = 1:12)
-
-#my observation from using the break 1:12 is that 
-#as two dice were rolled, their sample values can exceed 
-#the break point whcih is 12. and this makes the values 
-#on the x-axis to be out of range  
 
 
 # Another way to generate randomness is to sample from a pdf, which is a continuous distribution. The simplest pdf is the uniform function. The uniform function is a flat line bounded between 2 numbers. Because it is flat, the probability of drawing a sample from any interval of given width between the two bounds is the same as from any other interval of given width.
@@ -327,5 +310,4 @@ dunif(1.3,0,2)
 # The dunif() is used to calculate the probability density of the continues value of x for each question where 
 #x = 0.5, 2, 0.2 and 1.3 respectively, where the range of the distribution for each x values are (0,1), (0.1)
 #(0, 0.5) and (0,2) repectively. This implies x can take any ranges of within these brackets
-
 
