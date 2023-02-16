@@ -212,17 +212,18 @@ sample(1:10, 20, replace = TRUE)
 
 #a function that generates rondom numbers from two dice
 die_roll <- function(){
-  die1 = sample(1:6, number_of_roll, replace = TRUE)
-  die2 = sample(1:6, number_of_roll, replace = TRUE)
+  die1 = sample(1:6,2, replace = TRUE)
+  die2 = sample(1:6,2, replace = TRUE)
   sum_die = sum(die1, die2)
   print(paste('first die rolls',die1))
-  print(paste('first die rolls',die2))
+  print(paste('second die rolls',die2))
   print(paste('The sum of both die is:',sum_die))
 }
 
 #call the die function
 die_roll()
 
+?sample
 
 ### 4.2
 # Using the function hist, create histograms of the results of double dice rolls when you roll them 10 times, then 50, then 100, then 1000, then 10000. Use breaks=1:12 as an argument within the hist function. What do you notice? Write it in comments below your code.
