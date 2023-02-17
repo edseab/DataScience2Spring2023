@@ -38,7 +38,7 @@ rep(4,3)
 # If you can't remember in which order you have to input the arguments of a function, or if you just want to learn what a function does, you can type in ? followed by the function name in the console:
 ?rep
 
-# Each argument has a name. By explicitely referring to these names when calling the function, we can avoid  any problems with order. For example:
+# Each argument has a name. By explicitly referring to these names when calling the function, we can avoid  any problems with order. For example:
 rep(x=3, times=4)
 rep(times=4, x=3)
 
@@ -94,7 +94,7 @@ Salaam -> y
 z <- 50:80
 z
 
-# The numbers in square brackets tell you the INDEX of the element to their right. The index is simply the position number of that element. You will notice that, unlike in Python, the first element of an object in R has the index number 1 and not 0. This is one of the most important syntatical differences between Python and R (if you think this is not a very important difference, you are correct. The two languages are very similar in syntax.)
+# The numbers in square brackets tell you the INDEX of the element to their right. The index is simply the position number of that element. You will notice that, unlike in Python, the first element of an object in R has the index number 1 and not 0. This is one of the most important syntactical differences between Python and R (if you think this is not a very important difference, you are correct. The two languages are very similar in syntax.)
 
 # Vectors can be created from singular elements using the function c(), which stands for combine or concatenate.
 
@@ -112,8 +112,12 @@ my.vector[c(1,4)]
 ### 1.1
 # You can assign values to specific elements. Try writing a line of code below that changes the 4th element of my.vector to the word 'test'
 
+my.vector[4] <- 'test'
+
 ### 1.2
-# You can even assign values to elements of a vector that don't exist yet, thus creating them. Try assigning the word 'example' to the (as yet non-existant) 5th element of my.vector.
+# You can even assign values to elements of a vector that don't exist yet, thus creating them. Try assigning the word 'example' to the (as yet non-existent) 5th element of my.vector.
+
+my.vector[5] <- 'example'
 
 # Instead of indices, you can select elements of a vector using a logical vector of the same length, e.g.
 
@@ -135,6 +139,8 @@ my.vector == 'is'
 digits <- 0:10
 # Using the least amount of code possible, write a line of code that returns only the odd values of the digits object.
 
+odddigits <- digits[c(TRUE,FALSE,TRUE,FALSE,TRUE,FALSE,TRUE,FALSE,TRUE,FALSE)]
+
 # Another important logical operator is the %in% operator. It tells you if the elements on the left are found in the elements on the right. E.G.
 group1 <- c('Arthur', 'Fatima', 'Suleiman', 'Marco')
 group2 <- c('Marco','Maria', 'Victor','Fatima', 'Antonio')
@@ -144,6 +150,10 @@ group1 %in% group2
 # intersect is a function which returns the elements that all of its arguments have in common. For example:
 intersect(group1,group2)
 # Write a line of code that replicates this output using only group1, group2, square brackets, and logical operators.
+
+group1[group1 %in% group2]
+
+
 
 ####################################
 ####     Writing functions      ####
@@ -157,7 +167,7 @@ f1(7)
 ex.vector <- c(2,7,4,24,13,8,12)
 f1(ex.vector)
 
-# You can write several lines of code in a function by enclosing all of the in curly brackets {}. The function 'return' can then specify what the ouput can be. For example:
+# You can write several lines of code in a function by enclosing all of the in curly brackets {}. The function 'return' can then specify what the output can be. For example:
 
 f2 <- function(x,y){
   z = x %% y
@@ -169,8 +179,14 @@ f2(14,7)
 
 ### 3.1 What is the purpose of function f2? Write in comments below.
 
+# f2 returns a boolean of whether the remainder between two input object is zero. If the input objects contain 
+# more than one value and are of the same length, it iterates through these in order and returns a number of booleans
+# equal to that length, one for every index number.
+
 ### 3.2
 # Based on the definition of the mean from today's lecture, write a function that calculates the mean of all of the elements of a vector. assign it to the object my.mean. You will find the functions 'sum' and 'length' useful here.
+
+calculatemean <- function(x) sum(x)/length(x)
 
 # compare your function to the native function in R. Does it produce the same results?
 my.mean(ex.vector)
@@ -183,41 +199,97 @@ mean(ex.vector)
 # There are several ways to generate randomness in R. The simplest function is 
 ?sample
 
-#which randomy draws WITHOUT replacement from a specified vector. For example, to choose a number at random between 1 and 10:
+#which randomly draws WITHOUT replacement from a specified vector. For example, to choose a number at random between 1 and 10:
 sample(1:10, 1)
 # You can run this several times and notice that you get a different answer each time. You can also sample several times at once
 sample(1:10, 3)
-# However, by default, sample won't let the same number repeat when you do this. This is called sampling without replacement, because it is as if, each time you pick out a number, it is now gone from the pool of possible numbers and has not been replaced.
-# If you want to sample randomly between 1 and 10 20 times, each time chossing between all 10 numbers, you have to write:
+# However, by default, sample won't let the same number repeat when you do this. This is called sampling without replacement, 
+# because it is as if, each time you pick out a number, it is now gone from the pool of possible numbers and has not been replaced.
+# If you want to sample randomly between 1 and 10 20 times, each time choosing between all 10 numbers, you have to write:
 sample(1:10, 20, replace = TRUE)
 
 ### 4.1
-# Write a function that simulates the roll of 2 6-sided dice, where the argument x is the number of times you roll the 2 dice, and the output is a vector of length x, where each element corresponds to the sum of the two sides of the dice.
-# HINT: one way to do this is to start by writing a function for a single 6-sided die, then create a new function that repeats the first function twice and adds up the result.
+# Write a function that simulates the roll of 2 6-sided dice, where the argument x is the number of times you roll the 2 dice, 
+# and the output is a vector of length x, where each element corresponds to the sum of the two sides of the dice.
+# HINT: one way to do this is to start by writing a function for a single 6-sided die, then create a new function 
+# that repeats the first function twice and adds up the result.
+
+rolldice <- function(x) {
+  output = c()
+  for (i in 1:x){
+    output[i] <- sum(sample(1:6, 2, replace = TRUE))}
+  return(output)
+}
+
 
 ### 4.2
-# Using the function hist, create histograms of the results of double dice rolls when you roll them 10 times, then 50, then 100, then 1000, then 10000. Use breaks=1:12 as an argument within the hist function. What do you notice? Write it in comments below your code.
+# Using the function hist, create histograms of the results of double dice rolls when you roll them 10 times, 
+#then 50, then 100, then 1000, then 10000. Use breaks=1:12 as an argument within the hist function. 
+# What do you notice? Write it in comments below your code.
+
+hist(rolldice(10),breaks=1:12,plot=TRUE)
+hist(rolldice(50),breaks=1:12,plot=TRUE)
+hist(rolldice(100),breaks=1:12,plot=TRUE)
+hist(rolldice(500),breaks=1:12,plot=TRUE)
+hist(rolldice(1000),breaks=1:12,plot=TRUE)
+hist(rolldice(10000),breaks=1:12,plot=TRUE)
+
+#As t-->infinity, roll outcomes start to approach a bell curve.
 
 
-# Another way to generate randomness is to sample from a pdf, which is a continuous distribution. The simplest pdf is the uniform function. The uniform function is a flat line bounded between 2 numbers. Because it is flat, the probability of drawing a sample from any interval of given width between the two bounds is the same as from any other interval of given width.
+# Another way to generate randomness is to sample from a pdf, which is a continuous distribution. 
+# The simplest pdf is the uniform function. The uniform function is a flat line bounded between 2 numbers. 
+# Because it is flat, the probability of drawing a sample from any interval of given width between the two bounds 
+# is the same as from any other interval of given width.
 
-# The function runif(n, min,max) samples n times from a uniform function bounded between the values of min and max. For example, try
+# The function runif(n, min,max) samples n times from a uniform function bounded between the values of min and max.
+# For example, try
 runif(5,0,1)
 
 ### 4.3
 # Using runif, write a function that returns TRUE 22% of the time and FALSE 78% of the time
 
+checker <- function(){
+  x <- runif(1,0,1)
+  
+  if(x < 0.22){
+    return(TRUE)
+  }
+  else{
+    return(FALSE)
+  }
+}
+
 ### 4.4
-# Based on today's lecture about pdfs, what is the probability density for a uniform pdf bounded between 0 and 1 associated with all values of x between 0 and 1? Explain why.
+# Based on today's lecture about pdfs, what is the probability density for a uniform pdf bounded between 
+# 0 and 1 associated with all values of x between 0 and 1? Explain why.
+
+# One (1). As i understand it, the probability density function maps the outcomes of a given continuous random variable
+# to expected probabilities. For a given interval, having this function allows one to calculate the expected probability
+# of an outcome falling within that interval by calculating the integral of the function over that interval. The integral of
+# some function over some interval is equal to the area under the curve of the graph plotted by that function, over that 
+# interval. In a uniform distribution, since the y-value (P(x)) is constant, this area will always be a rectangle, allowing us
+# to easily calculate the integral as (xb - xa)*(y) (y being the "length" of the rectangle). 
+# We also know that probability densities over the whole area must sum to 1. The length of the x-axis
+# between 0 and 1. The only possible way the area is going to sum to 1 is for the constant y value
+# also to be 1. 
+#So, the probability density for the interval [0,1] is the area xb - xa = 1-0 (those are the bounds given) = 1; and y=1; and 1*1=1. 
 
 ### 4.5
 # Similarly, what is the probability density for a uniform pdf bounded between 5 and 6 associated with all values of x between 5 and 6?
 
+# Following the same reasoning as above, the constant P(x) (the y-value) must be equal to 1 since 6-5 =1 and the solution for 1=x*1 is x=1. 
+# The probability density is the integral calculated over the rectangle (6-5)1 = 1.
+
 ### 4.6
 # What is the probability density for a uniform pdf bounded between 0 and 0.5 associated with all values of x between 0 and 0.5?
 
+# 0.5-0=0.5. If 1=0.5*x, x=2. The probability density is 2*0.5=1.
+
 ### 4.7
 # What is the probability density for a uniform pdf bounded between 0 and 2 associated with all values of x between 0 and 2?
+
+#2-0=2. If 1=2*x, x=2=0.5. The probability density is 0.5*2=1.
 
 ### 4.8
 # run the following code:
@@ -227,5 +299,10 @@ dunif(0.2,0,0.5)
 dunif(1.3,0,2)
 
 # Based on the results of this code and your answers above, what can you conclude about the purpose of the dunif function?
+
+# It _looks_ like dunif takes the arguments (value, start of interval, end of interval), and returns the associated 
+# probability density associated with the input value for a uniform distribution over the input interval. 
+# But if that were the case, it should always return 0 for single values because probability density only has 
+# nonzero values over intervals, not for specific values. So i'm a bit puzzled.
 
 
