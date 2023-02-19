@@ -111,10 +111,12 @@ my.vector[c(1,4)]
 
 ### 1.1
 # You can assign values to specific elements. Try writing a line of code below that changes the 4th element of my.vector to the word 'test'
-
+my.vector[4]<-"test"
+my.vector
 ### 1.2
 # You can even assign values to elements of a vector that don't exist yet, thus creating them. Try assigning the word 'example' to the (as yet non-existant) 5th element of my.vector.
-
+my.vector[5]<-"example"
+my.vector
 # Instead of indices, you can select elements of a vector using a logical vector of the same length, e.g.
 
 my.vector[c(TRUE,TRUE,FALSE,FALSE,FALSE)]
@@ -134,6 +136,7 @@ my.vector == 'is'
 ### 2.1
 digits <- 0:10
 # Using the least amount of code possible, write a line of code that returns only the odd values of the digits object.
+1:10 %% 2 !=0
 
 # Another important logical operator is the %in% operator. It tells you if the elements on the left are found in the elements on the right. E.G.
 group1 <- c('Arthur', 'Fatima', 'Suleiman', 'Marco')
@@ -144,6 +147,7 @@ group1 %in% group2
 # intersect is a function which returns the elements that all of its arguments have in common. For example:
 intersect(group1,group2)
 # Write a line of code that replicates this output using only group1, group2, square brackets, and logical operators.
+group2[group1 %in% group2]
 
 ####################################
 ####     Writing functions      ####
@@ -168,11 +172,20 @@ f2(8,9)
 f2(14,7)
 
 ### 3.1 What is the purpose of function f2? Write in comments below.
+# The purpose of the function is to determine if x is evenly divisible by y (i.e., if there is no remainder after the division). The function does this by checking if z is equal to zero.
 
 ### 3.2
 # Based on the definition of the mean from today's lecture, write a function that calculates the mean of all of the elements of a vector. assign it to the object my.mean. You will find the functions 'sum' and 'length' useful here.
+mean_of_vector <- function(x) {
+  if(length(x) == 0) {
+    return(NA)  # return NA if the input vector is empty
+  } else {
+    return(mean(x))
+  }
+}
 
-# compare your function to the native function in R. Does it produce the same results?
+
+# compare your function to the native function in R. Does it produce the same results? #Yes
 my.mean(ex.vector)
 mean(ex.vector)
 
@@ -194,10 +207,38 @@ sample(1:10, 20, replace = TRUE)
 ### 4.1
 # Write a function that simulates the roll of 2 6-sided dice, where the argument x is the number of times you roll the 2 dice, and the output is a vector of length x, where each element corresponds to the sum of the two sides of the dice.
 # HINT: one way to do this is to start by writing a function for a single 6-sided die, then create a new function that repeats the first function twice and adds up the result.
+roll_dice <- function(x) {
+  rolls <- vector(length = x)  # create an empty vector to store the results
+  
+  for (i in 1:x) {
+    dice1 <- sample(1:6, 1, replace = TRUE)  # roll the first die
+    dice2 <- sample(1:6, 1, replace = TRUE)  # roll the second die
+    rolls[i] <- dice1 + dice2  # sum the two dice rolls and store the result
+  }
+  
+  return(rolls)  # return the vector of results
+}
 
 ### 4.2
 # Using the function hist, create histograms of the results of double dice rolls when you roll them 10 times, then 50, then 100, then 1000, then 10000. Use breaks=1:12 as an argument within the hist function. What do you notice? Write it in comments below your code.
+# Set up function to roll two dice
 
+# Roll two dice 10 times and create histogram
+hist(roll_dice(10), breaks=1:12, main="Double dice rolls (n=10)", xlab="Sum of dice rolls")
+
+# Roll two dice 50 times and create histogram
+hist(roll_dice(50), breaks=1:12, main="Double dice rolls (n=50)", xlab="Sum of dice rolls")
+
+# Roll two dice 100 times and create histogram
+hist(roll_dice(100), breaks=1:12, main="Double dice rolls (n=100)", xlab="Sum of dice rolls")
+
+# Roll two dice 1000 times and create histogram
+hist(roll_dice(1000), breaks=1:12, main="Double dice rolls (n=1000)", xlab="Sum of dice rolls")
+
+# Roll two dice 10000 times and create histogram
+hist(roll_dice(10000), breaks=1:12, main="Double dice rolls (n=10000)", xlab="Sum of dice rolls")
+
+#As the number of rolls increases, the shape of the distribution becomes more symmetric and bell-shaped.
 
 # Another way to generate randomness is to sample from a pdf, which is a continuous distribution. The simplest pdf is the uniform function. The uniform function is a flat line bounded between 2 numbers. Because it is flat, the probability of drawing a sample from any interval of given width between the two bounds is the same as from any other interval of given width.
 
@@ -206,18 +247,35 @@ runif(5,0,1)
 
 ### 4.3
 # Using runif, write a function that returns TRUE 22% of the time and FALSE 78% of the time
+return_true_22_percent <- function() {
+  random_number <- runif(1)  # generate a random number between 0 and 1
+  if (random_number <= 0.22) {
+    return(TRUE)
+  } else {
+    return(FALSE)
+  }
+}
 
 ### 4.4
 # Based on today's lecture about pdfs, what is the probability density for a uniform pdf bounded between 0 and 1 associated with all values of x between 0 and 1? Explain why.
+# f(x) = 1, 0 ≤ x ≤ 1
+# 0, otherwise
+# the probability density for a uniform pdf bounded between 0 and 1 is constant and equal to 1 within the interval [0, 1], and zero outside this interval. 
+#This is because the probability is evenly distributed across the entire interval, and the area under the curve of the pdf must be equal to 1.
 
 ### 4.5
 # Similarly, what is the probability density for a uniform pdf bounded between 5 and 6 associated with all values of x between 5 and 6?
+#f(x) = 1, 5 ≤ x ≤ 6
+#0, otherwise
 
 ### 4.6
 # What is the probability density for a uniform pdf bounded between 0 and 0.5 associated with all values of x between 0 and 0.5?
-
+# f(x) = 2, 0 ≤ x ≤ 0.5
+#0, otherwise
 ### 4.7
 # What is the probability density for a uniform pdf bounded between 0 and 2 associated with all values of x between 0 and 2?
+#f(x) = 1/2, 0 ≤ x ≤ 2
+#0, otherwise
 
 ### 4.8
 # run the following code:
@@ -227,5 +285,6 @@ dunif(0.2,0,0.5)
 dunif(1.3,0,2)
 
 # Based on the results of this code and your answers above, what can you conclude about the purpose of the dunif function?
-
+#The dunif function can be useful in simulating situations where we need to generate 
+#random values that are uniformly distributed within a specific range.
 
