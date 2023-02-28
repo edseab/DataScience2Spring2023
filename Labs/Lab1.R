@@ -38,11 +38,11 @@ rep(4,3)
 # If you can't remember in which order you have to input the arguments of a function, or if you just want to learn what a function does, you can type in ? followed by the function name in the console:
 ?rep
 
-# Each argument has a name. By explicitely referring to these names when calling the function, we can avoid  any problems with order. For example:
+# Each argument has a name. By explicitly referring to these names when calling the function, we can avoid  any problems with order. For example:
 rep(x=3, times=4)
 rep(times=4, x=3)
 
-# produce the same result, because we inputed the arguments by name using the 'argname = x' construction. When we don't use this construction, the function defaults each input to an argument according to a predefined order.
+# produce the same result, because we imputed the arguments by name using the 'argname = x' construction. When we don't use this construction, the function defaults each input to an argument according to a predefined order.
 
 # OPERATORS are special functions that take only 2 arguments, and do not use brackets. Instead, you must input the two arguments on either side of the operator. Examples of operators include +, -,*,/, ^, %%, %/%, :, and there are many more which we will learn about soon.
 
@@ -89,7 +89,7 @@ Salaam -> y
 ####     Vectors and indices    ####
 ####################################
 
-# YOu will have noticed that the console has always returned a [1] in front of it's output so far. This is because R has considered all these objects to be 'vectors' (in Python, this is the same thing as an array). Vectors are objects that can contain multiple elements. For example:
+# You will have noticed that the console has always returned a [1] in front of it's output so far. This is because R has considered all these objects to be 'vectors' (in Python, this is the same thing as an array). Vectors are objects that can contain multiple elements. For example:
 
 z <- 50:80
 z
@@ -111,10 +111,12 @@ my.vector[c(1,4)]
 
 ### 1.1
 # You can assign values to specific elements. Try writing a line of code below that changes the 4th element of my.vector to the word 'test'
-
+my.vector[4]= 'test'
+my.vector
 ### 1.2
 # You can even assign values to elements of a vector that don't exist yet, thus creating them. Try assigning the word 'example' to the (as yet non-existant) 5th element of my.vector.
-
+my.vector[5]= 'example'
+my.vector
 # Instead of indices, you can select elements of a vector using a logical vector of the same length, e.g.
 
 my.vector[c(TRUE,TRUE,FALSE,FALSE,FALSE)]
@@ -133,7 +135,15 @@ my.vector == 'is'
 
 ### 2.1
 digits <- 0:10
+digits
 # Using the least amount of code possible, write a line of code that returns only the odd values of the digits object.
+for (i in digits)
+   { 
+ if (i %% 2 == 1)
+    
+print (i)
+}
+
 
 # Another important logical operator is the %in% operator. It tells you if the elements on the left are found in the elements on the right. E.G.
 group1 <- c('Arthur', 'Fatima', 'Suleiman', 'Marco')
@@ -144,7 +154,7 @@ group1 %in% group2
 # intersect is a function which returns the elements that all of its arguments have in common. For example:
 intersect(group1,group2)
 # Write a line of code that replicates this output using only group1, group2, square brackets, and logical operators.
-
+group1[group1 %in% group2]
 ####################################
 ####     Writing functions      ####
 ####################################
@@ -168,10 +178,11 @@ f2(8,9)
 f2(14,7)
 
 ### 3.1 What is the purpose of function f2? Write in comments below.
+#Answer : It returns true if the remainder after dividing x by y is zero
 
 ### 3.2
 # Based on the definition of the mean from today's lecture, write a function that calculates the mean of all of the elements of a vector. assign it to the object my.mean. You will find the functions 'sum' and 'length' useful here.
-
+my.mean <- function(x) sum(x)/length(x)
 # compare your function to the native function in R. Does it produce the same results?
 my.mean(ex.vector)
 mean(ex.vector)
@@ -183,22 +194,31 @@ mean(ex.vector)
 # There are several ways to generate randomness in R. The simplest function is 
 ?sample
 
-#which randomy draws WITHOUT replacement from a specified vector. For example, to choose a number at random between 1 and 10:
+#which random draws WITHOUT replacement from a specified vector. For example, to choose a number at random between 1 and 10:
 sample(1:10, 1)
+
 # You can run this several times and notice that you get a different answer each time. You can also sample several times at once
 sample(1:10, 3)
 # However, by default, sample won't let the same number repeat when you do this. This is called sampling without replacement, because it is as if, each time you pick out a number, it is now gone from the pool of possible numbers and has not been replaced.
-# If you want to sample randomly between 1 and 10 20 times, each time chossing between all 10 numbers, you have to write:
+# If you want to sample randomly between 1 and 10 20 times, each time choosing between all 10 numbers, you have to write:
 sample(1:10, 20, replace = TRUE)
 
 ### 4.1
 # Write a function that simulates the roll of 2 6-sided dice, where the argument x is the number of times you roll the 2 dice, and the output is a vector of length x, where each element corresponds to the sum of the two sides of the dice.
 # HINT: one way to do this is to start by writing a function for a single 6-sided die, then create a new function that repeats the first function twice and adds up the result.
+d1 <- function(x) sample (1:6, size = x, replace = TRUE)
+d2 <- function(x) sample (1:6, size = x, replace = TRUE)
+d1(1)+ d2(1)
 
 ### 4.2
 # Using the function hist, create histograms of the results of double dice rolls when you roll them 10 times, then 50, then 100, then 1000, then 10000. Use breaks=1:12 as an argument within the hist function. What do you notice? Write it in comments below your code.
-
-
+library(tidyverse)
+hist(d1(10)+d2(10),breaks= 1:12)
+hist(d1(50)+d2(50),breaks= 1:12)
+hist(d1(100)+d2(100),breaks= 1:12)
+hist(d1(1000)+d2(1000),breaks= 1:12)
+hist(d1(10000)+d2(10000),breaks= 1:12)
+#I noticed that as we increased the number of roll times, the frequency distribution gets closer to a perfect normal distribution
 # Another way to generate randomness is to sample from a pdf, which is a continuous distribution. The simplest pdf is the uniform function. The uniform function is a flat line bounded between 2 numbers. Because it is flat, the probability of drawing a sample from any interval of given width between the two bounds is the same as from any other interval of given width.
 
 # The function runif(n, min,max) samples n times from a uniform function bounded between the values of min and max. For example, try
@@ -206,9 +226,17 @@ runif(5,0,1)
 
 ### 4.3
 # Using runif, write a function that returns TRUE 22% of the time and FALSE 78% of the time
+rf <- function(){
+  rf <-runif(1)
+  if (rf < 0.22) {
+    return (TRUE)
+  } else {
+    return (FALSE)
+  }
+}
 
 ### 4.4
-# Based on today's lecture about pdfs, what is the probability density for a uniform pdf bounded between 0 and 1 associated with all values of x between 0 and 1? Explain why.
+# Based on today's lecture about PDFs, what is the probability density for a uniform pdf bounded between 0 and 1 associated with all values of x between 0 and 1? Explain why.
 
 ### 4.5
 # Similarly, what is the probability density for a uniform pdf bounded between 5 and 6 associated with all values of x between 5 and 6?
