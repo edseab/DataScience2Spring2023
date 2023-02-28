@@ -313,17 +313,17 @@ my_t <- function(x1,x2){
     
     # next, calculate the average standard deviation using the formula shown in the class on slide 44:
     
-    s <- sqrt(((n1 - 1) * s1 + (n2 - 1) * s2) / (n1 + n2 - 2))
+    s <- sqrt(s1/n1 + s2/n2)
     
     # next, calculate the t-statistic, again as shown on slide 44
     
-    t <- (m1 - m2) / (s * sqrt(1 / n1 + 1 / n2))
+    t <- (m1 - m2) / s
     
     
     # next, calculate the degrees of freedom (again see slide 44)
     # make sure you use parentheses correctly here
     
-    df <- (s^2 * (1 / n1 + 1 / n2)^2) / ((s1^2 / (n1 - 1)) * (1 / n1)^2 + (s2^2 / (n2 - 1)) * (1 / n2)^2) 
+    df <- ( s1/n1 + s2/n2)^2 / ((((s1/n1)^2)/(n1 - 1)) + (((s2/ n2)^2)/(n2 - 1)))
     
     # next, calculate the probability that the t-statistic would be greater than the absolute value of the t-statistic that you calculated if the TRUE difference between the groups was 0
     # to do this, you can use function pt
