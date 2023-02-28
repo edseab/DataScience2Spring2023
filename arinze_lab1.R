@@ -211,7 +211,7 @@ roll_2d6 <- function(x) {
   results
 }
 
-roll_2d6(6)
+roll_2d6(5)
 ### 4.2
 # Using the function hist, create histograms of the results of double dice rolls when you roll them 10 times, then 50, then 100, then 1000, then 10000. Use breaks=1:12 as an argument within the hist function. What do you notice? Write it in comments below your code.
 
