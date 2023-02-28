@@ -237,15 +237,32 @@ rf <- function(){
 
 ### 4.4
 # Based on today's lecture about PDFs, what is the probability density for a uniform pdf bounded between 0 and 1 associated with all values of x between 0 and 1? Explain why.
+#f(x)= 1
+#0 <- x <- 1
+#Reason 
+#The overall area under the curve with a uniform distribution between 0 and 1 must be equal to 1 , because the likelihood of event occuring between 0 and 1 is 1.
 
 ### 4.5
 # Similarly, what is the probability density for a uniform pdf bounded between 5 and 6 associated with all values of x between 5 and 6?
+#f(x)= 1/(b-a) = 1/(6-5)= 1 for 5<- x <- 6
+#the area under the curve 5 and 6 is also 1 so the probability density for a uniform is also 1.
+
 
 ### 4.6
 # What is the probability density for a uniform pdf bounded between 0 and 0.5 associated with all values of x between 0 and 0.5?
+#f(x)= 1/(0.5-0)= 1/0.5 = 2
+#for 0 <= x <= 0.5
+#Therefore, the probability density for a uniform pdf limited between 0 and 0.5 associated with all values of x and 0.5 is a constant value of
+#2, and the probability of any specific value of x betwwen 0 and 0.5 is proportional to the length of the interval containing that value.
+
+#
 
 ### 4.7
 # What is the probability density for a uniform pdf bounded between 0 and 2 associated with all values of x between 0 and 2?
+#f(x)= 1/(2-0)= 1/0.5 = 1/2
+#for 0 <= x <= 2
+#Therefore, the probability density for a uniform pdf limited between 0 and 2 associated with all values of x and 0.5 is a constant value of
+#2, and the probability of any specific value of x betwwen 0 and 2 is proportional to the length of the interval containing that value.
 
 ### 4.8
 # run the following code:
@@ -255,5 +272,5 @@ dunif(0.2,0,0.5)
 dunif(1.3,0,2)
 
 # Based on the results of this code and your answers above, what can you conclude about the purpose of the dunif function?
-
-
+#The dunif is used to calculate the probability density value(pdf) of a continuous uniform distribution at a
+# value of x, for a specified range of values .
