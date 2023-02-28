@@ -12,12 +12,17 @@ Checkout a new branch before you save any changes (e.g. the lab file) using:
 
     git checkout -b <newbranchname>
 
+Then publish that branch on github using
+    
+    git push -u origin <newbranchname>
+    
 When working on a lab file, remember to add your name to the filename before saving.
 
 Remember to run 
 
     git add <filename_or_directory>
     git commit -am "commit message"
+    git push origin <newbranchname>
 
 to commit all your saved changes to the branch.
 
