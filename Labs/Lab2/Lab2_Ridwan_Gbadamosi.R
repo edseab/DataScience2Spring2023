@@ -358,7 +358,7 @@ my_t <- function(x1,x2){
 # compare this function to the in-built t-test
 t.test(og_trilogy,preq_trilogy)
 my_t(og_trilogy,preq_trilogy)
-# They both give the same result
+# They both give the same result.
 
 # One last question to ponder before next class: Why did we multiply the p-value by 2?
 #The p-value was multiplied by 2 in a two-tailed test to account for the possibility of the effect being in either direction and to test whether the effect is different from zero.
