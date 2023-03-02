@@ -49,7 +49,7 @@ colnames(star_wars_matrix) <- c("US revenue", "International revenue")
 # Use one of the above functions to calculate the total revenue for each movie (the sum of the US and international revenue)
 # and save it in an object called total_revenue
 
-total_revenue <- colSums(star_wars_matrix, c("US revenue","International revenue"))
+total_revenue <- rowSums(star_wars_matrix)
 total_revenue
 
 # We can now add this vector as a new column using the function cbind (column bind)
@@ -73,12 +73,19 @@ revenge_of_sith <- c(380.3, 468.5)
 ### 1.3
 # Turn these 3 vectors into a matrix, add a column for total revenue, 
 # and append them to star_wars_matrix using the function rbind (row bind)
+office <- c(phantom_menace, attack_of_clones, revenge_of_sith)
+box_matrix <- matrix(office, nrow=3, byrow=T)
+box_matrix
 
-box_matrix <- matrix(c(phantom_menace, attack_of_clones, revenge_of_sith), ncol=2, byrow=T)
+rownames(box_matrix) <- c("phantom_menace", "attack_of_clones", "revenge_of_sith")
 colnames(box_matrix) <- c("US", "International")
-box_matrix <- cbind(box_matrix, rowSums(box_matrix))
+total_revenue2 <- rowSums(box_matrix)
+total_revenue2
+
+box_matrix <- cbind(box_matrix, total_revenue2)
 colnames(box_matrix)[3] <- "Total revenue"
 box_matrix
+
 star_wars_matrix <- rbind(star_wars_matrix, box_matrix)
 star_wars_matrix
 
@@ -267,12 +274,9 @@ dbinom(8,10,0.7)
 # Using rbinom(), simulate 100,000 universes where the aliens sent out 20 probes to Earth
 # and calculate in what percentage of these universes the number of probes signalling Water is 11 or fewer
 # What do you conclude to the astronomer?
-s <- 1000000
-n <- 20
-p <- 0.7
-water_count<- rbinom(s, n, p)
+water_count<- rbinom(1000000, 20, 0.7)
 water_count
-prop_waters <- mean(water_count <= 11)
+prop_waters <- sum((water_count <= 11)/length(water_count))
 prop_waters
 # we can conclude that it is quite unlikely that the planet is Earth, since the probability of observing 11 or fewer Water signals is very low.
 
@@ -305,29 +309,29 @@ preq_trilogy <- star_wars_matrix[4:6,3]
 my_t <- function(x1,x2){
   # first, extract the means, variances and Ns of the two samples and save thel to
   n1 <- length(x1)
-    m1 <-mean(x1)
-    s1 <- var(x1)
-    n2 <-length(x2)
-    m2 <- mean(x2)
-    s2 <- var(x2)
-    
-    # next, calculate the average standard deviation using the formula shown in the class on slide 44:
-    
-    s <- sqrt(s1/n1 + s2/n2)
-    
-    # next, calculate the t-statistic, again as shown on slide 44
-    
-    t <- (m1 - m2) / s
-    
-    
-    # next, calculate the degrees of freedom (again see slide 44)
-    # make sure you use parentheses correctly here
-    
-    df <- ( s1/n1 + s2/n2)^2 / ((((s1/n1)^2)/(n1 - 1)) + (((s2/ n2)^2)/(n2 - 1)))
-    
-    # next, calculate the probability that the t-statistic would be greater than the absolute value of the t-statistic that you calculated if the TRUE difference between the groups was 0
-    # to do this, you can use function pt
-    p_value <- pt(abs(t), df=df, lower.tail = F)*2
+  m1 <-mean(x1)
+  s1 <- var(x1)
+  n2 <-length(x2)
+  m2 <- mean(x2)
+  s2 <- var(x2)
+  
+  # next, calculate the average standard deviation using the formula shown in the class on slide 44:
+  
+  s <- sqrt(s1/n1 + s2/n2)
+  
+  # next, calculate the t-statistic, again as shown on slide 44
+  
+  t <- (m1 - m2) / s
+  
+  
+  # next, calculate the degrees of freedom (again see slide 44)
+  # make sure you use parentheses correctly here
+  
+  df <- ( s1/n1 + s2/n2)^2 / ((((s1/n1)^2)/(n1 - 1)) + (((s2/ n2)^2)/(n2 - 1)))
+  
+  # next, calculate the probability that the t-statistic would be greater than the absolute value of the t-statistic that you calculated if the TRUE difference between the groups was 0
+  # to do this, you can use function pt
+  p_value <- pt(abs(t), df=df, lower.tail = F)*2
   
   return(list(t = t, df = df, p_value=p_value))
 }
