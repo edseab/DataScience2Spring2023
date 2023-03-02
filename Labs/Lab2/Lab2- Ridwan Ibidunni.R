@@ -48,6 +48,9 @@ colnames(star_wars_matrix) <- c("US revenue", "International revenue")
 # Some important base R functions to know: colSums, rowSums, colMeans, rowMeans
 # Use one of the above functions to calculate the total revenue for each movie (the sum of the US and international revenue)
 # and save it in an object called total_revenue
+rowSums?
+total_revenue<- rowSums(star_wars_matrix)
+total_revenue
 
 # We can now add this vector as a new column using the function cbind (column bind)
 
@@ -55,6 +58,9 @@ star_wars_matrix <- cbind(star_wars_matrix, total_revenue)
 
 ### 1.2
 # Rename the 3rd element of the column names of star_wars_matrix to "Total revenue"
+colnames(star_wars_matrix) <- c("US revenue", "International revenue", "Total revenuew") 
+star_wars_matrix
+
 
 # Now lets create vectors for the box office returns of the prequel trilogy
 
@@ -211,8 +217,16 @@ sample(1:100,1)
 # To do this you will need to use either the factorial() function
 # or the choose() function
 
+funt <- function (n, k, p) {
+  comb <- factorial(n)/ (factorial(k) * factorial(n-k))
+  probab <- (p^k) * (1-p)^(n-k) * comb
+  return(probab)
+}
+
 # use your function to calculate the probability that when the aliens send 10 probes to Earth (probability of water = 0.7),
 # exactly 8 of those probes will send a signal of water
+
+funt(10, 8, 0.7)
 
 # compare this to dbinom(8,10,0.7)
 
@@ -266,12 +280,12 @@ preq_trilogy <- star_wars_matrix[4:6,3]
 # Write a Welch's t-test function for any two samples x1 and x2
 my_t <- function(x1,x2){
   # first, extract the means, variances and Ns of the two samples and save thel to
-  n1 <- 
-  m1 <-
-  s1 <- 
-  n2 <-
-  m2 <- 
-  s2 <- 
+  n1 <- length(x1)
+  m1 <- mean(x1)
+  s1 <- sd(x1)
+  n2 <- length(x2)
+  m2 <- mean(x2)
+  s2 <- sd(x2)
  
   # next, calculate the average standard deviation using the formula shown in the class on slide 44:
  
