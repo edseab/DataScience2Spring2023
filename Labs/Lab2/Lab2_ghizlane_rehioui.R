@@ -85,7 +85,7 @@ star_wars_matrix[3,1]
 
 ### 1.4 
 # Write a line of code to extract the total revenue of the Phantom Menace (the 4th movie) using numbers to index the matrix
-star_wars_matrix[4,3] # this is for the international revenue of The Phantom Menace
+star_wars_matrix[4,3] # this is for the total revenue of The Phantom Menace
 # Compare this to the following:
 star_wars_matrix["The Phantom Menace", "Total revenue"] # same as: star_wars_matrix[4,3]
 
