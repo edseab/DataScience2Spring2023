@@ -68,13 +68,9 @@ star_wars_matrix
 ### 1.2
 # Rename the 3rd element of the column names of star_wars_matrix to "Total revenue"
 colnames(star_wars_matrix)[3] <- "Total revenue"
-<<<<<<<< HEAD:Labs/Lab2/Lab2_Oscar_Hountondji.R
-star_wars_matrix
 
-========
 print(colnames(star_wars_matrix))
 star_wars_matrix
->>>>>>>> hajar:Labs/Lab2/Lab2_HajarFETTAH.R
 # Now lets create vectors for the box office returns of the prequel trilogy
 
 phantom_menace <- c(474.5,552.5)
@@ -87,35 +83,12 @@ revenge_of_sith <- c(380.3, 468.5)
 box_office <- c(phantom_menace, attack_of_clones, revenge_of_sith)
 new_matrix <- matrix(box_office, byrow = T, nrow = 3)
 
-<<<<<<<< HEAD:Labs/Lab2/Lab2_Oscar_Hountondji.R
-prequel <- c(phantom_menace, attack_of_clones, revenge_of_sith)
-prequel_matrix <- matrix(prequel, byrow = T, nrow = 3)
-prequel_matrix
-
-rownames(prequel_matrix) <- c("The Phantom Menace", "Attack of clones", "Revenge of sith")
-colnames(prequel_matrix) <- c("US revenue", "International revenue")
-prequel_matrix
-
-total_revenue_2 <- rowSums(prequel_matrix)
-total_revenue_2
-
-prequel_matrix <- cbind(prequel_matrix, total_revenue_2)
-prequel_matrix
-
-colnames(prequel_matrix)[3] <- "Total revenue"
-prequel_matrix
-
-star_wars_matrix <- rbind(star_wars_matrix, prequel_matrix)
-star_wars_matrix
-
-========
 new_matrix
 total_revenue <- rowSums(new_matrix)
 new_matrix <- cbind(new_matrix, total_revenue)
 print(new_matrix)
 star_wars_matrix <- rbind(star_wars_matrix, new_matrix)
 print(star_wars_matrix)
->>>>>>>> hajar:Labs/Lab2/Lab2_HajarFETTAH.R
 # Matrices are understood by R to be both one-dimensional, because they are vectors folded onto themselves
 # into columns, but also 2 dimensional, because they have rows and columns. 
 # So you can index them like this:
@@ -129,13 +102,8 @@ star_wars_matrix[3,1]
 
 ### 1.4 
 # Write a line of code to extract the international revenue of the Phantom Menace (the 4th movie) using numbers to index the matrix
-<<<<<<<< HEAD:Labs/Lab2/Lab2_Oscar_Hountondji.R
-star_wars_matrix[4,2]
-
-========
 revenue_phantom_menace_international = star_wars_matrix[4]
 revenue_phantom_menace_international
->>>>>>>> hajar:Labs/Lab2/Lab2_HajarFETTAH.R
 # Compare this to the following:
 star_wars_matrix["The Phantom Menace", "Total revenue"]
 
@@ -183,11 +151,7 @@ my_list$boolean
 ### 2.1
 # Using the $ operator, replace the "matrix" element of my_list with the star_wars_matrix
 my_list$matrix <- star_wars_matrix
-<<<<<<<< HEAD:Labs/Lab2/Lab2_Oscar_Hountondji.R
-
-========
 my_list
->>>>>>>> hajar:Labs/Lab2/Lab2_HajarFETTAH.R
 # Finally, you can turn any list into a vector with unlist().
 unlist(my_list)
 
@@ -289,12 +253,7 @@ binomial_probability <- function(n, k, p) {
 
 # use your function to calculate the probability that when the aliens send 10 probes to Earth (probability of water = 0.7),
 # exactly 8 of those probes will send a signal of water
-<<<<<<<< HEAD:Labs/Lab2/Lab2_Oscar_Hountondji.R
-my_binom(8,10,0.7)
-
-========
 binomial_probability(n = 10, k = 8, p = 0.7)
->>>>>>>> hajar:Labs/Lab2/Lab2_HajarFETTAH.R
 # compare this to dbinom(8,10,0.7)
 dbinom(8,10,0.7)
 
@@ -321,15 +280,6 @@ pbinom(11,20,0.7)
 # Using rbinom(), simulate 100,000 universes where the aliens sent out 20 probes to Earth
 # and calculate in what percentage of these universes the number of probes signalling Water is 11 or fewer
 # What do you conclude to the astronomer?
-<<<<<<<< HEAD:Labs/Lab2/Lab2_Oscar_Hountondji.R
-simul = rbinom(100000,20,0.7)
-hist(simul)
-sum((simul<=(11))/length(simul)) 
-
-#p= 0.11269, this greater than 0.05 so we fail to reject H0:it can be the earth
-
-
-========
 s<- 100000
 n<- 20
 p<-0.7
@@ -339,7 +289,6 @@ set.seed(100)
 simulations <- 100000
 probes <- rbinom(simulations, n, p)
 sum(probes <= 11) / simulations
->>>>>>>> hajar:Labs/Lab2/Lab2_HajarFETTAH.R
 # pbinom, pnorm, punif, pbeta, .... all calculate the area under the curve of a given distribution,
 # in the LOWER tail (if lower.tail=TRUE, by default), or the UPPER tail (if you set it to false)
 
@@ -370,16 +319,6 @@ my_t <- function(x1,x2){
   # first, extract the means, variances and Ns of the two samples and save thel to
   n1 <- length(x1)
   m1 <- mean(x1)
-<<<<<<<< HEAD:Labs/Lab2/Lab2_Oscar_Hountondji.R
-  s1 <- sd(x1)
-  n2 <- length(x2)
-  m2 <- mean(x2)
-  s2 <- sd(x2)
- 
-  # next, calculate the average standard deviation using the formula shown in the class on slide 44:
- 
-  s <- sqrt(((s1^2)/n1)+ ((s2^2)/n2))
-========
   s1 <- var(x1)
   n2 <- length(x2)
   m2 <- mean(x2)
@@ -388,7 +327,6 @@ my_t <- function(x1,x2){
   # next, calculate the average standard deviation using the formula shown in the class on slide 44:
  
   s <- sqrt(s1/n1+ s2/n2)
->>>>>>>> hajar:Labs/Lab2/Lab2_HajarFETTAH.R
 
   # next, calculate the t-statistic, again as shown on slide 44
  
@@ -398,12 +336,8 @@ my_t <- function(x1,x2){
   # next, calculate the degrees of freedom (again see slide 44)
   # make sure you use parentheses correctly here
  
-<<<<<<<< HEAD:Labs/Lab2/Lab2_Oscar_Hountondji.R
-  df <- ((((s1^2)/n1)+ ((s2^2)/n2))^2)/((((s1^2)/n1)^2)/(n1-1) + (((s2^2)/n2)^2)/(n2-1))
-========
   df <- (s1/n1+ s2/n2)^2 /((((s1/n1)^2)/(n1-1))+(((s2/n2)^2)/(n2-1)))
->>>>>>>> hajar:Labs/Lab2/Lab2_HajarFETTAH.R
- 
+
   # next, calculate the probability that the t-statistic would be greater than the absolute value of the t-statistic that you calculated if the TRUE difference between the groups was 0
   # to do this, you can use function pt
   p_value <- pt(abs(t), df=df, lower.tail = F)*2
@@ -416,11 +350,4 @@ t.test(og_trilogy,preq_trilogy)
 my_t(og_trilogy,preq_trilogy)
 
 # One last question to ponder before next class: Why did we multiply the p-value by 2?
-<<<<<<<< HEAD:Labs/Lab2/Lab2_Oscar_Hountondji.R
-# It is because we are doing a two-sided test.
-# We are just checking if there is any difference between the 2 means
-# But we don't specify whether a mean is greater or less than the another one.
-# So, we need to multiply by 2 since both possibilities exist
-========
 #We multiply the p-value by 2 in a two-tailed hypothesis test when the alternative hypothesis is not directional, meaning it simply states that there is a difference between the two groups being compared, but does not specify the direction of that difference.
->>>>>>>> hajar:Labs/Lab2/Lab2_HajarFETTAH.R
