@@ -14,7 +14,7 @@
 
 
 # On the right is the console. You can input code directly into the console line by line - you do not need to run an entire file. Try running a simple calculation in the console, like 5+9. Type it in and press enter. 
-
+5+9
 # You can also write code in this, the code editor, and run it from here. Try highlighting the following line and clicking 'Run':
 12 * 4 - 6
 
@@ -112,12 +112,10 @@ my.vector[c(1,4)]
 ### 1.1
 # You can assign values to specific elements. Try writing a line of code below that changes the 4th element of my.vector to the word 'test'
 
-my.vector[4] <- 'test'
 
 ### 1.2
 # You can even assign values to elements of a vector that don't exist yet, thus creating them. Try assigning the word 'example' to the (as yet non-existent) 5th element of my.vector.
 
-my.vector[5] <- 'example'
 
 # Instead of indices, you can select elements of a vector using a logical vector of the same length, e.g.
 
@@ -153,14 +151,13 @@ intersect(group1,group2)
 
 group1[group1 %in% group2]
 
-
-
 ####################################
 ####     Writing functions      ####
 ####################################
 
 # Functions can be written and stored as objects. e.g:
 f1 <- function(x) x*2 + 1
+f1
 # This function has only 1 argument, x. Try out this new function:
 f1(3)
 f1(7)
@@ -179,16 +176,11 @@ f2(14,7)
 
 ### 3.1 What is the purpose of function f2? Write in comments below.
 
-# f2 returns a boolean of whether the remainder between two input object is zero. If the input objects contain 
-# more than one value and are of the same length, it iterates through these in order and returns a number of booleans
-# equal to that length, one for every index number.
-
 ### 3.2
 # Based on the definition of the mean from today's lecture, write a function that calculates the mean of all of the elements of a vector. assign it to the object my.mean. You will find the functions 'sum' and 'length' useful here.
 
-calculatemean <- function(x) sum(x)/length(x)
-
 # compare your function to the native function in R. Does it produce the same results?
+
 my.mean(ex.vector)
 mean(ex.vector)
 
@@ -214,27 +206,10 @@ sample(1:10, 20, replace = TRUE)
 # HINT: one way to do this is to start by writing a function for a single 6-sided die, then create a new function 
 # that repeats the first function twice and adds up the result.
 
-rolldice <- function(x) {
-  output = c()
-  for (i in 1:x){
-    output[i] <- sum(sample(1:6, 2, replace = TRUE))}
-  return(output)
-}
-
-
 ### 4.2
 # Using the function hist, create histograms of the results of double dice rolls when you roll them 10 times, 
 #then 50, then 100, then 1000, then 10000. Use breaks=1:12 as an argument within the hist function. 
 # What do you notice? Write it in comments below your code.
-
-hist(rolldice(10),breaks=1:12,plot=TRUE)
-hist(rolldice(50),breaks=1:12,plot=TRUE)
-hist(rolldice(100),breaks=1:12,plot=TRUE)
-hist(rolldice(500),breaks=1:12,plot=TRUE)
-hist(rolldice(1000),breaks=1:12,plot=TRUE)
-hist(rolldice(10000),breaks=1:12,plot=TRUE)
-
-#As t-->infinity, roll outcomes start to approach a bell curve.
 
 
 # Another way to generate randomness is to sample from a pdf, which is a continuous distribution. 
@@ -249,47 +224,18 @@ runif(5,0,1)
 ### 4.3
 # Using runif, write a function that returns TRUE 22% of the time and FALSE 78% of the time
 
-checker <- function(){
-  x <- runif(1,0,1)
-  
-  if(x < 0.22){
-    return(TRUE)
-  }
-  else{
-    return(FALSE)
-  }
-}
-
 ### 4.4
 # Based on today's lecture about pdfs, what is the probability density for a uniform pdf bounded between 
 # 0 and 1 associated with all values of x between 0 and 1? Explain why.
 
-# One (1). As i understand it, the probability density function maps the outcomes of a given continuous random variable
-# to expected probabilities. For a given interval, having this function allows one to calculate the expected probability
-# of an outcome falling within that interval by calculating the integral of the function over that interval. The integral of
-# some function over some interval is equal to the area under the curve of the graph plotted by that function, over that 
-# interval. In a uniform distribution, since the y-value (P(x)) is constant, this area will always be a rectangle, allowing us
-# to easily calculate the integral as (xb - xa)*(y) (y being the "length" of the rectangle). 
-# We also know that probability densities over the whole area must sum to 1. The length of the x-axis
-# between 0 and 1. The only possible way the area is going to sum to 1 is for the constant y value
-# also to be 1. 
-#So, the probability density for the interval [0,1] is the area xb - xa = 1-0 (those are the bounds given) = 1; and y=1; and 1*1=1. 
-
 ### 4.5
 # Similarly, what is the probability density for a uniform pdf bounded between 5 and 6 associated with all values of x between 5 and 6?
-
-# Following the same reasoning as above, the constant P(x) (the y-value) must be equal to 1 since 6-5 =1 and the solution for 1=x*1 is x=1. 
-# The probability density is the integral calculated over the rectangle (6-5)1 = 1.
 
 ### 4.6
 # What is the probability density for a uniform pdf bounded between 0 and 0.5 associated with all values of x between 0 and 0.5?
 
-# 0.5-0=0.5. If 1=0.5*x, x=2. The probability density is 2*0.5=1.
-
 ### 4.7
 # What is the probability density for a uniform pdf bounded between 0 and 2 associated with all values of x between 0 and 2?
-
-#2-0=2. If 1=2*x, x=2=0.5. The probability density is 0.5*2=1.
 
 ### 4.8
 # run the following code:
@@ -299,10 +245,3 @@ dunif(0.2,0,0.5)
 dunif(1.3,0,2)
 
 # Based on the results of this code and your answers above, what can you conclude about the purpose of the dunif function?
-
-# It _looks_ like dunif takes the arguments (value, start of interval, end of interval), and returns the associated 
-# probability density associated with the input value for a uniform distribution over the input interval. 
-# But if that were the case, it should always return 0 for single values because probability density only has 
-# nonzero values over intervals, not for specific values. So i'm a bit puzzled.
-
-
