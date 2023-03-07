@@ -159,20 +159,14 @@ summary(model)
 
 ### 5.1
 # What does the Estimate for the (Intercept) number represent?
-#the estimate for the (Intercept) represents the estimated mean value of the dependent variable mpg when the independent variable wt is equal to zero.
 
 ### 5.2
 # What does the Estimate for the mtcars$wt number represent?
-#the estimate for mtcars$wt represents the expected change in the dependent variable (mpg) for a one-unit increase in the independent variable (wt), holding all other variables in the model constant. In other words, it represents the estimated slope of the relationship between mpg and wt.
 
 ### 5.3 
 # Is the relationship between these two variables positive or negative? Why do you think that might be?
-#The relationship between mpg and wt in the mtcars dataset is negative. This means that as the weight of the car increases, the fuel efficiency (measured by mpg) tends to decrea
 
 ### 5.4 What is the predicted average efficiency in miles per gallon of a 4000 pound (2000kg) car?
-newdata <- data.frame(wt = 4)
-predicted_mpg <- predict(model, newdata)
-predicted_mpg
 
 
 # Let's transform the independent variable:
