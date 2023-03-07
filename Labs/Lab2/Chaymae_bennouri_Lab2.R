@@ -78,7 +78,6 @@ box_matrix <- matrix(office, nrow=3, byrow=T)
 box_matrix
 
 rownames(box_matrix) <- c("phantom_menace", "attack_of_clones", "revenge_of_sith")
-colnames(box_matrix) <- c("US", "International")
 total_revenue2 <- rowSums(box_matrix)
 total_revenue2
 
@@ -92,10 +91,10 @@ star_wars_matrix
 # Matrices are understood by R to be both one-dimensional, because they are vectors folded onto themselves
 # into columns, but also 2 dimensional, because they have rows and columns. 
 # So you can index them like this:
-star_wars_matrix[4]
+star_wars_matrix[9]
 
 # but also like this
-star_wars_matrix[3,1]
+star_wars_matrix[3,2]
 
 # When you put a comma in between square brackets, you are indexing both the rows (to the left of the comma),
 # and the columns (to the right of the comma).
@@ -278,7 +277,7 @@ water_count<- rbinom(1000000, 20, 0.7)
 water_count
 prop_waters <- sum((water_count <= 11)/length(water_count))
 prop_waters
-# we can conclude that it is quite unlikely that the planet is Earth, since the probability of observing 11 or fewer Water signals is very low.
+# we can conclude that Earth, you could have gotten this result with a probability of 11%.
 
 # pbinom, pnorm, punif, pbeta, .... all calculate the area under the curve of a given distribution,
 # in the LOWER tail (if lower.tail=TRUE, by default), or the UPPER tail (if you set it to false)
@@ -310,14 +309,14 @@ my_t <- function(x1,x2){
   # first, extract the means, variances and Ns of the two samples and save thel to
   n1 <- length(x1)
   m1 <-mean(x1)
-  s1 <- var(x1)
+  s1 <- sd(x1)
   n2 <-length(x2)
   m2 <- mean(x2)
-  s2 <- var(x2)
+  s2 <- sd(x2)
   
   # next, calculate the average standard deviation using the formula shown in the class on slide 44:
   
-  s <- sqrt(s1/n1 + s2/n2)
+  s <- sqrt(s1^2/n1 + s2^2/n2)
   
   # next, calculate the t-statistic, again as shown on slide 44
   
@@ -327,7 +326,7 @@ my_t <- function(x1,x2){
   # next, calculate the degrees of freedom (again see slide 44)
   # make sure you use parentheses correctly here
   
-  df <- ( s1/n1 + s2/n2)^2 / ((((s1/n1)^2)/(n1 - 1)) + (((s2/ n2)^2)/(n2 - 1)))
+  df <- ( s1^2/n1 + s2^2/n2)^2 / ((s1^2/n1)^2/(n1 - 1) + (s2^2/ n2)^2/(n2 - 1))
   
   # next, calculate the probability that the t-statistic would be greater than the absolute value of the t-statistic that you calculated if the TRUE difference between the groups was 0
   # to do this, you can use function pt
