@@ -176,9 +176,9 @@ summary(model)
 
 ### 5.4 What is the predicted average efficiency in miles per gallon of a 4000 pound (2000kg) car?
 
-predict <- 37.2851 +(-5.3445*1)
+predict <- 37.2851 +(-5.3445*4)
 predict
-#31.9406
+#15.9071
 # Let's transform the independent variable:
 mtcars$wt_centred <- mtcars$wt - mean(mtcars$wt)
 var(mtcars$wt_centred)
