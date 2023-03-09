@@ -160,11 +160,18 @@ summary(model)
 ### 5.1
 # What does the Estimate for the (Intercept) number represent?
 
+#The estimated mean value of the dependent variable.
+
 ### 5.2
 # What does the Estimate for the mtcars$wt number represent?
 
+#the predicted value for the variable (mpg) for a one-unit increase in the independent variable (wt).
+
 ### 5.3 
 # Is the relationship between these two variables positive or negative? Why do you think that might be?
+
+#The relationship between mpg and wt is negative. 
+#This means that as the weight of the car increases, the measured by mpg tends to decrease 
 
 ### 5.4 What is the predicted average efficiency in miles per gallon of a 4000 pound (2000kg) car?
 
@@ -174,11 +181,21 @@ mtcars$wt_centred <- mtcars$wt - mean(mtcars$wt)
 mtcars$wt_centred
 ### 5.5
 # compare the mean and variance of the new variable with the untransformed variable. What do you notice?
+mean(mtcars$wt)
+var(mtcars$wt)
+
+mean(mtcars$wt_centred)
+var(mtcars$wt_centred)
+
+#the mean of wt is much larger than wt_centred (3.21725/3.469447e-17), but they have both the same variance 
 
 ### 5.6
 # Run a new regression with new independent variable
 # What do you notice about the estimates?
 # What is the interpretation of the (Intercept) estimate in this regression?
+
+reg<- lm(mtcars$mpg ~ mtcars$hp)
+summary(reg)
 
 ### 5.7
 # Run the following code:
@@ -193,6 +210,6 @@ x <- cbind(1,mtcars$wt)
 # (x'x)^(-1) * (x'y)
 # where ' means the transpose
 # Run the code you have written. What do you find?
-
-
-
+z <- solve(t(x) %*% x )%*% (t(x) %*% y)
+z
+#the same Estimate  Intercept 37.2851 mtcars$wt -5.3445
