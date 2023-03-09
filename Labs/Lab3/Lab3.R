@@ -35,8 +35,12 @@ head(mtcars)
 # Using indexing (square brackets) and the & operator, write a line of code
 # that selects only the rows of mtcars with at least 6 cylinders (mtcars$cyl >= 6) and horsepower of at least 110 (mtcars$hp >= 110). Remember to include all the columns.
 
+mtcars[mtcars$cyl >= 6 & mtcars$hp >= 110, ]
+
 ### 1.2
 # Now select only those rows with either high efficiency (miles per gallon (mpg) of at least 25) or low weight (wt <= 2.5)
+
+mtcars[mtcars$mpg >= 25 | mtcars$wt <= 2.5, ]
 
 #############################
 ####    If statements    ####
@@ -56,6 +60,15 @@ if(x-4==1){
 # The function should return a character vector of length n, consisting of 'Water' and 'Land', sampled with probability w. (so probability of sampling 'Water' is w)
 # If the p argument is not numeric, or if it is not between 0 and 1, the function should return the following message:
 # "Please input a probability between 0 and 1"
+
+probe <- function(n, w) {
+  if (!is.numeric(w) || w < 0 || w > 1) {
+    return("Please input a probability between 0 and 1")
+  } else {
+    result <- sample(c("Water", "Land"), n, replace = TRUE, prob = c(w, 1-w))
+    return(result)
+  }
+}
 
 
 # After the if statement we can put an else statement:
@@ -107,6 +120,10 @@ data(iris)
 
 # Write a for loop that iterates over the column names of the iris dataset and print each together with the number of characters in the column name in parenthesis. Example output: Sepal.Length (12). To get the number of characters use the function nchar().
 
+for (col_name in names(iris)) {
+  cat(col_name, "(", nchar(col_name), ")\n")
+}
+
 # Next, WHILE loops continue to loop until the boolean statment in the defining parentheses, e.g.
 x <- 0
 while(x<100){
@@ -116,6 +133,17 @@ while(x<100){
 
 ### 4.2 How many numbers do you need in the sequence 1*2*3*4*5*... before the product exceeds 10 million?
 # Use a while loop to get the answer
+
+product <- 1
+count <- 0
+
+while (product <= 1e7) {
+  count <- count + 1
+  product <- product * count
+}
+
+cat("The numbers needed are:", count, "\n")
+
 
 ###################################
 ####    Linear models intro    ####
@@ -127,26 +155,49 @@ while(x<100){
 # Lets run a bivariate regression of car weight (in 1000 pounds/500 kg) on miles per gallon (1mpg = 1km/L)
 model <- lm(mtcars$mpg ~ mtcars$wt)
 summary(model)
+
 ### 5.1
 # What does the Estimate for the (Intercept) number represent?
+
+#The estimate of the intercept represents the predicted value of mpg when wt=0.
+
 ### 5.2
 # What does the Estimate for the mtcars$wt number represent?
+
+#The estimate for the mtcars$wt represents the average change in  mpg for a one-unit increase in wt, while other variables are constant.
 
 ### 5.3 
 # Is the relationship between these two variables positive or negative? Why do you think that might be?
 
+#The relationship between these two variables is negative (-5.3445 estimated for mtcars$wt). Because the consumption of the fuel increases in cases the car is much more heavier. 
+
 ### 5.4 What is the predicted average efficiency in miles per gallon of a 4000 pound (2000kg) car?
+
+#mpg = a + b * wt -->  mpg = 37.2851 - 5.3445 * 8 --> mpg = 0.4651
 
 # Let's transform the independent variable:
 mtcars$wt_centred <- mtcars$wt - mean(mtcars$wt)
 
 ### 5.5
 # compare the mean and variance of the new variable with the untransformed variable. What do you notice?
+mean(mtcars$wt_centred)
+mean(mtcars$wt)
+#The mean of the centered variable is close to zero
+var(mtcars$wt)
+var(mtcars$wt_centred)
+#The variance is the same because the fact of centering does not affect the variance.
 
 ### 5.6
 # Run a new regression with new independent variable
 # What do you notice about the estimates?
 # What is the interpretation of the (Intercept) estimate in this regression?
+
+newreg <- lm(mtcars$mpg ~ mtcars$wt_centred)
+summary(newreg)
+
+#The intercept is the same as the first regression.
+#The estimate of the centered weight is also the same but the std.error is different from the first one.
+#the Intercept shows the anticipated value of mpg When the car's wt is equal to the average weight in the dataset.
 
 ### 5.7
 # Run the following code:
@@ -161,6 +212,13 @@ x <- cbind(1,mtcars$wt)
 # (x'x)^(-1) * (x'y)
 # where ' means the transpose
 # Run the code you have written. What do you find?
+
+D<- solve(t(x) %*% x) %*% t(x) %*% y
+D
+# Results: wt=-5.344472 / intercept=37.285126     these are the same estimated regression coefficients given by the lm() function before.
+
+
+
 
 
 
