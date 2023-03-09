@@ -159,7 +159,7 @@ summary(model)
 # It represent the slope of the linear equation
 ### 5.3 
 # Is the relationship between these two variables positive or negative? Why do you think that might be?
-# it is a positive relationship because the r square value is greater than 0
+# it is a negative relationship because the value of the b1 estimate that is the slope is less than 0
 ### 5.4 What is the predicted average efficiency in miles per gallon of a 4000 pound (2000kg) car?
 r = 37.2851 + (-5.3445)*(4000/1000)
 r
