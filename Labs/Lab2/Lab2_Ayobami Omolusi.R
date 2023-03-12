@@ -201,7 +201,8 @@ sample(1:100,1)
 
 # You got 31, right? Run it again and see:
 
-set.seed(123)
+set.seed
+(123)
 sample(1:100,1)
 
 # Any time we want to make sure we get the same results as one another despite having some
@@ -295,17 +296,17 @@ my_t <- function(x1,x2){
   # first, extract the means, variances and Ns of the two samples and save thel to
   n1 <-length(x1) 
   m1 <-mean(x1)
-  s1 <-var(x1) 
+  s1 <-sd(x1) 
   n2 <-length(x2)
   m2 <-mean(x2)
-  s2 <-var(x2) 
+  s2 <-sd(x2) 
  
   # next, calculate the average standard deviation using the formula shown in the class on slide 44:
  
-  #s <- sqrt(s1^2/n1 + s2^2/n2) #the formular from the slide seems wrong, it shouldnt have "^2"
+  s <- sqrt(s1^2/n1 + s2^2/n2) #the formular from the slide seems wrong, it shouldnt have "^2"
   #since its already covered in the variance
   
-  s <- sqrt(s1/n1 + s2/n2)
+  #s <- sqrt(s1/n1 + s2/n2)
 
   # next, calculate the t-statistic, again as shown on slide 44
  
@@ -315,9 +316,9 @@ my_t <- function(x1,x2){
   # next, calculate the degrees of freedom (again see slide 44)
   # make sure you use parentheses correctly here
  
-  df <- (s1/n1 + s2/n2)^2 / ((s1/n1)^2/(n1-1) + (s2/n2)^2/(n2-1))
+ # df <- (s1/n1 + s2/n2)^2 / ((s1/n1)^2/(n1-1) + (s2/n2)^2/(n2-1))
   
-  #df <- (s1^2/n1 + s2^2/n2)^2 / ((s1^2/n1)^2/(n1-1) + (s2^2/n2)^2/(n2-1)) #the formular from the slide seems wrong, it shouldnt have "^2"
+  df <- (s1^2/n1 + s2^2/n2)^2 / ((s1^2/n1)^2/(n1-1) + (s2^2/n2)^2/(n2-1)) #the formular from the slide seems wrong, it shouldnt have "^2"
   #since its already covered in the variance
  
   # next, calculate the probability that the t-statistic would be greater than the absolute value of the t-statistic that you calculated if the TRUE difference between the groups was 0
